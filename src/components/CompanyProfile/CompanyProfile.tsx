@@ -1,26 +1,40 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import CompanyBanner from "../CompanyBanner/CompanyBanner";
 import styles from "./CompanyProfile.module.scss";
-import sgBanner from "@/assets/images/sg-banner.jpg";
-import Image from "next/image";
-import sgLogo from "@/assets/images/sgLogo.png";
+import cn from "classnames";
 
 const CompanyProfile = () => {
+  const [tab, setTabValue] = useState("home");
+
   return (
     <div className={styles.container}>
-      <div className={styles.bannerContainer}>
-        <div className={styles.banner}>
-          <Image src={sgBanner} alt="sgBanner" className={styles.bannerImage} />
-          <Image src={sgLogo} alt="sgLogo" className={styles.logo} />
-        </div>
-      </div>
-      <div className={styles.companiesInfo}>
-        <div>
-          <h1 className={styles.title}> Société Générale</h1>
-          <p className={styles.description}>{`c'est vous l'avenir`}</p>
-        </div>
-        <p className={styles.details}>
-          Services bancaires - Paris - 44 017 employés
-        </p>
+      <CompanyBanner />
+      <div className={styles.tabContainer}>
+        <button
+          className={cn(styles.tab, { [styles.active]: tab === "home" })}
+          onClick={() => setTabValue("home")}
+        >
+          Accueil
+        </button>
+        <button
+          className={cn(styles.tab, { [styles.active]: tab === "about" })}
+          onClick={() => setTabValue("about")}
+        >
+          A propos
+        </button>
+        <button
+          className={cn(styles.tab, { [styles.active]: tab === "event" })}
+          onClick={() => setTabValue("event")}
+        >
+          Evenement
+        </button>
+        <button
+          className={cn(styles.tab, { [styles.active]: tab === "alumni" })}
+          onClick={() => setTabValue("alumni")}
+        >
+          Alumni
+        </button>
       </div>
     </div>
   );

@@ -1,0 +1,20 @@
+@import "styles/text.module.scss";
+
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 48px 32px;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+    background-color: white;
+
+}
+
+.title{
+    font : $title;
+}
+
+.value{
+    font: $kpi;
+}

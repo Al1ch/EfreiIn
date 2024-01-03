@@ -1,0 +1,73 @@
+@import "styles/text.module.scss";
+@import "styles/color.module.scss";
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font: $text;
+    &.sm{
+        padding: 0;
+        min-width: 20px;
+        background-color: transparent;
+
+    }
+    &.md{
+        padding: 12px;
+
+    }
+    &.lg{
+        min-width: 175px;
+        padding: 12px;
+
+    }
+    &.blue{
+        background-color: #1e90ff;
+        &:hover{
+            background-color: hsl(210, 100%, 50%);
+
+        }
+    }
+    &.gray{
+        background-color: rgb(229, 229, 247);
+        &:hover{
+            background-color: $gray;
+
+        }
+        color: black;
+    }
+    &.white{
+        color: black;
+        background-color: rgba(255, 255, 255, 0.986);
+        &:hover{
+            background-color: rgb(237, 234, 234);
+            transition: ease-in-out 0.2s;
+        }
+    }
+    &.red{
+        background-color: $red;
+        &:hover{
+            background-color: hsla(0, 100%, 50%, 0.735);
+        }
+    }
+    &.disabled{
+        pointer-events: none;
+    }
+
+
+}
+
+.container:disabled{
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+}
+
+.link{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

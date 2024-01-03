@@ -1,0 +1,57 @@
+@import 'styles/text.module.scss';
+@import 'styles/color.module.scss';
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.bannerContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.bannerImage{
+    max-width: 100%;
+    max-height: 200px;
+}
+
+.logo{
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translate(50%, 50%);
+}
+
+.banner{
+    position:  relative;
+    margin-bottom: 72px;
+}
+
+.companiesInfo{
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    padding-left: 46px;
+}
+
+.title{
+    font: $company-name;
+}
+
+.description{
+    font: $company-slogan;
+}
+
+.details{
+    font: $detail;
+    color: $info;
+}

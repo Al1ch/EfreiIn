@@ -1,16 +1,30 @@
 @import 'styles/color.module.scss'; 
 
+.containerProfile{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: white;
+    margin-top: 32px;
+    &.removeBackground{
+        background-color: transparent;
+    }
+}
+
 .container{
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
-    margin-top: 32px;
+    gap: 16px;
+    background-color: white;
+    &.removeShadow{
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+    }
 }
 
 .tabContainer{
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .tab{
@@ -24,3 +38,5 @@
         color: $active;
     }
 }
+
+

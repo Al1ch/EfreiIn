@@ -1,0 +1,43 @@
+@import 'styles/color.module.scss'; 
+@import 'styles/text.module.scss'; 
+
+
+.container{
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+    padding:  8px 16px ;
+}
+
+.profile{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+}
+
+.profileImage{
+    width: 64px;
+    height: 64px;
+    border-radius:  100%;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.name{
+    font : $name;
+}
+
+.company{
+    font: $detail;
+    color: $info;
+}
+

@@ -1,0 +1,11 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.bannerContainer{
+    padding: 32px;
+    display: flex;
+    max-width: 800px;
+    width: 100%;
+}

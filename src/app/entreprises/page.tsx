@@ -6,14 +6,40 @@ import sgLogo from "@/assets/images/sgLogo.png";
 export default async function EntreprisePage() {
   return (
     <div className={styles.container}>
-      <EntrepriseCard
-        banner={sgBanner}
-        logo={sgLogo}
-        name="Société Générale"
-        sector="Banque"
-        location="Paris"
-        size="> 1000 employés"
-      />
+      <div className={styles.cardListContainer}>
+        <EntrepriseCard
+          banner={sgBanner}
+          logo={sgLogo}
+          name="Société Générale"
+          sector="Banque"
+          location="Paris"
+          size="> 1000 employés"
+        />
+        <EntrepriseCard
+          banner={sgBanner}
+          logo={sgLogo}
+          name="Société Générale"
+          sector="Banque"
+          location="Paris"
+          size="> 1000 employés"
+        />
+        <EntrepriseCard
+          banner={sgBanner}
+          logo={sgLogo}
+          name="Société Générale"
+          sector="Banque"
+          location="Paris"
+          size="> 1000 employés"
+        />
+        <EntrepriseCard
+          banner={sgBanner}
+          logo={sgLogo}
+          name="Société Générale"
+          sector="Banque"
+          location="Paris"
+          size="> 1000 employés"
+        />
+      </div>
     </div>
   );
 }

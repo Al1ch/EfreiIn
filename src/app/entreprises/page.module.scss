@@ -1,6 +1,15 @@
 .container{
     display: flex;
     width: 100%;
-    justify-content: center;
+}
+
+.cardListContainer{
     padding: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    gap: 16px;
+    width: 100%;
+    max-width: 1000px;
+
 }

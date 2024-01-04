@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
@@ -13,17 +14,17 @@ const Navbar = () => {
       <EfreiLogo className={styles.logo} />
       <SearchBar />
       <div className={styles.itemContainer}>
-        <Link href="Réseau" className={styles.link}>
+        <Link href="/Reseau" className={styles.link}>
           <span className={styles.item}>
             <NetworkSvg /> Réseau
           </span>
         </Link>
-        <Link href="Home" className={styles.link}>
+        <Link href="/accueil" className={styles.link}>
           <span className={styles.item}>
             <HomeSvg /> Accueil{" "}
           </span>
         </Link>
-        <Link href="Companies" className={styles.link}>
+        <Link href="/entreprises" className={styles.link}>
           <span className={styles.item}>
             <CompaniesSvg />
             Entreprises

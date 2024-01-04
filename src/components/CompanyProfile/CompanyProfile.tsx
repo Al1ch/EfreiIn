@@ -5,13 +5,15 @@ import styles from "./CompanyProfile.module.scss";
 import cn from "classnames";
 import HomeTab from "@/components/HomeTab/HomeTab";
 import AlumniTab from "@/components/AlumniTab/AlumniTab";
+import AboutTab from "@/components//AboutTab/AboutTab";
+
 const CompanyProfile = () => {
   const [tab, setTabValue] = useState("home");
 
   return (
     <div
       className={cn(styles.containerProfile, {
-        [styles.removeBackground]: tab === "home",
+        [styles.removeBackground]: tab === "home" || tab === "about",
       })}
     >
       <div
@@ -49,9 +51,9 @@ const CompanyProfile = () => {
       </div>
 
       {tab === "home" && <HomeTab />}
-      {tab === "about" && <div>About</div>}
-      {tab === "event" && <div>Event</div>}
+      {tab === "about" && <AboutTab />}
       {tab === "alumni" && <AlumniTab />}
+      {/* {tab === "event" && <div>Event</div>} */}
     </div>
   );
 };

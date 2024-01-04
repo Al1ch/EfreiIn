@@ -12,9 +12,7 @@ const nextConfig = {
   
 	  return config;
 	},
-	experimental: {
-	  serverActions: true,
-	},
+
   };
   
   module.exports = nextConfig;

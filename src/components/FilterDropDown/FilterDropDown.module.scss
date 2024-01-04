@@ -1,0 +1,50 @@
+@import "styles/text.module.scss";
+@import "styles/color.module.scss";
+
+.container{
+    display: flex;
+    padding: 12px;
+    border: 1px solid rgba(128, 128, 128, 0.164);
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+
+}
+
+.labelContainer{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.label{
+    font: $text;
+    color: $info;
+}
+
+.icon{
+    width: 16px;
+    height: 16px;
+    fill{
+        path : $info;
+    }
+}
+
+.dropDown{
+    position: absolute;
+    background-color: red;
+    right: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    min-width: 100%;
+    display: flex;
+    z-index: 100;
+    justify-content: flex-start;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+    min-height: 25px;
+    align-items: center;
+    &.clicked{
+        opacity: 1;
+    }
+}

@@ -1,0 +1,40 @@
+@import "styles/text.module.scss";
+@import "styles/color.module.scss";
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    background-color: white;
+    border-radius: 8px;
+    gap: 16px;
+}
+
+
+.contentContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.description{
+    max-width: 750px;
+    word-break: break-word;
+
+}
+
+.titleInfo{
+    font: $title-text;
+}
+
+.link{
+    text-decoration: none;
+    font:$link;
+    color: $link-color;
+}
+
+.text{
+    font: $text;
+    color: $secondary-info;
+}

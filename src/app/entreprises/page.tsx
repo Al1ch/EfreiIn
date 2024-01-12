@@ -71,8 +71,8 @@ return (
     <div className={styles.cardListContainer}>
         {entrepriseData.map((entreprise) => (
         <EntrepriseCard
-            banner=""
-            logo=""
+            banner={sgBanner}
+            logo={sgLogo}
             name={entreprise.name}
             sector={entreprise.column_values[1].value}
             location="where??????" // y a pas colonne location 

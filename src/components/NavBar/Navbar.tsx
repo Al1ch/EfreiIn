@@ -19,7 +19,7 @@ const Navbar = () => {
             <NetworkSvg /> Réseau
           </span>
         </Link>
-        <Link href="/accueil" className={styles.link}>
+        <Link href="/home" className={styles.link}>
           <span className={styles.item}>
             <HomeSvg /> Accueil{" "}
           </span>

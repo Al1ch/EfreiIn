@@ -2,11 +2,14 @@
         "use client";
 
         import React, { useEffect, useState } from 'react';
-        import { Bar } from 'react-chartjs-2';
-        import { CategoryScale, Chart, registerables } from "chart.js";
+        import { Bar, Line, Doughnut } from 'react-chartjs-2';
+        import { CategoryScale, LinearScale, Chart, registerables, LineController,Title } from 'chart.js';
+        import 'chartjs-plugin-datalabels';
 
         Chart.register(...registerables);
-        Chart.register(CategoryScale as any);
+        Chart.register(CategoryScale as any, LinearScale as any);
+        Chart.register('line', LineController as any);
+
 
         interface EntrepriseData {
         name: string;
@@ -61,10 +64,6 @@
         return isNaN(value) ? 0 : value;
         });
 
-
-        console.log("dataValues");
-        console.log(dataValues);
-
         const data = {
         labels: labels,
         datasets: [
@@ -78,11 +77,71 @@
         ],
         };
 
+
+        const taxeApprentissage = entrepriseData.map((data) => {
+        const value = parseFloat(data.column_values[6].value.replace(/"/g, ''));
+        return isNaN(value) ? 0 : value;
+        });
+        console.log(taxeApprentissage)
+
+
+        const taxeApprentissageChart = {
+        labels: labels,
+        datasets: [
+        {
+        label: 'Taxe d\'apprentissage',
+        data: taxeApprentissage,
+        backgroundColor: [
+        'rgba(255, 99, 132, 0.5)',
+        'rgba(54, 162, 235, 0.5)',
+        'rgba(255, 205, 86, 0.5)',
+        // Ajoutez plus de couleurs si nécessaire
+        ],
+        borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 205, 86, 1)',
+        // Ajoutez plus de couleurs si nécessaire
+        ],
+        borderWidth: 1,
+        },
+        ],
+        };
+
+        const totalCost = taxeApprentissage.reduce((acc, value) => acc + value, 0);
+        console.log("totalCost",totalCost)
+
+
+        const doughnutOptions = {
+        plugins: {
+        datalabels: {
+        color: 'white',
+        font: {
+        weight: 'bold',
+        size: 16,
+        },
+        formatter: (value, context) => {
+        return `Coût Total\n${totalCost}`;
+        },
+        },
+        },
+        };
         return (
 <div>
-<h1>Graphique d'analyse</h1>
+<h1>Graphiques d'analyse</h1>
+<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+<div style={{ width: '30%' }}>
+<h2>Graphique d'Effectif</h2>
 <Bar data={data} />
 </div>
+<div style={{ width: '30%' }}>
+<h2>Graphique taxe d'apprentissage</h2>
+<Doughnut options={doughnutOptions} data={taxeApprentissageChart}  />
+        </div>
+<div style={{ width: '30%' }}>
+        </div>
+        </div>
+        </div>
         );
         };
 

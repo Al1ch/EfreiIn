@@ -25,7 +25,8 @@ export default function EntreprisePage() {
           },
           body: JSON.stringify({
             // 'query': 'query { boards (ids: 1363523728) { name columns {title id type} items { name group { id } column_values { id value text } } } } state id permissions }}'
-            'query': 'query { boards (ids: 1363523728) { name columns { title id type } items { name group { id } column_values { id value text } } } }'
+            'query': 'query { boards (ids: 1363523728) { name columns { title id type } items_page { items { name group { id } column_values { id value text } } } } }'
+            // 'query' : 'query { boards (ids: 1363523728) { items (ids: [1363523742, 1363523746]) { column_values { id value text } group { id } id name state } } }'
         })
         });
 
@@ -36,10 +37,9 @@ export default function EntreprisePage() {
         const data = await response.json();
         console.log('API Response:', data); // Log the API response to the console
 
-        const boardItems = data.data.boards[0].items;
+        const boardItems = data.data.boards[0].items_page.items;
 
         setEntrepriseData(boardItems);
-        // setEntrepriseData(data.data.boards[0]?.items || []);
         console.log('Board:', boardItems); // Log the API response to the console
 
       } catch (error) {

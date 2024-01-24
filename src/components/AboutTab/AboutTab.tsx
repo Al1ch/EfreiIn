@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AboutTab.module.scss";
 import Link from "next/link";
 
@@ -10,6 +10,37 @@ import Link from "next/link";
 // };
 
 const AboutTab = () => {
+
+  const [chartData, setChartData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("https://api.monday.com/v2", {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMwOTYyODQ2MywiYWFpIjoxMSwidWlkIjo1NDI5MjE5OCwiaWFkIjoiMjAyNC0wMS0xMlQwOTowNTowNy4yOTNaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjA3MTA2MDUsInJnbiI6ImV1YzEifQ.Uwpi4ASIpksw4t2rVpOIgQpkbINC981CKyz0W9zbKV8'
+          },
+          body: JSON.stringify({
+            'query' : 'query { boards (ids: 1363523728) { items_page { items (ids: [1363523742]) { column_values { id value text } group { id } id name state } } } }'
+        })
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('API Response:', data); // Log the API response to the console
+        const chartData = data.data.boards[0].items_page.items;
+        setChartData(chartData);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
   return (
     <div className={styles.container}>
       <h2 className={styles.sectionTitle}> Présentation</h2>
@@ -45,6 +76,13 @@ const AboutTab = () => {
           développement durable dont : DJSI (Europe), FTSE4Good (Global et
           Europe), Bloomberg Gender-Equality Index.
         </p>
+        
+        {/* radar */}
+        <div>
+          <h3 className={styles.titleInfo}>Overview</h3>
+          show the radar here
+        </div>
+
         <div className={styles.websiteSection}>
           <h3 className={styles.titleInfo}>Site web</h3>
           <Link href="https://www.societegenerale.com" className={styles.link}>

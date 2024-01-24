@@ -8,6 +8,7 @@ import Size from "@/assets/vectors/people.svg";
 import Link from "next/link";
 
 type Props = {
+  id: String;
   banner: string | StaticImageData;
   logo: string | StaticImageData;
   name: string;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 const EntrepriseCard = ({
+  id,
   banner,
   logo,
   name,
@@ -26,7 +28,8 @@ const EntrepriseCard = ({
 }: Props) => {
   return (
     <div className={styles.container}>
-      <Link href={`entreprises/${name}`} className={styles.link}>
+      {/* <Link href={`entreprises/${name}`} className={styles.link}> */}
+      <Link href={`entreprises/${id}`} passHref className={styles.link}>
         <div className={styles.banner}>
           <Image
             src={banner}

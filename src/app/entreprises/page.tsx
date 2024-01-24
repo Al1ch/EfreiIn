@@ -24,7 +24,7 @@ export default function EntreprisePage() {
             'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMwOTYyODQ2MywiYWFpIjoxMSwidWlkIjo1NDI5MjE5OCwiaWFkIjoiMjAyNC0wMS0xMlQwOTowNTowNy4yOTNaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjA3MTA2MDUsInJnbiI6ImV1YzEifQ.Uwpi4ASIpksw4t2rVpOIgQpkbINC981CKyz0W9zbKV8'
           },
           body: JSON.stringify({
-                'query': 'query { boards (ids: 1363523728) { name columns { title id type } items_page { items { name group { id } column_values { id value text } } } } }'
+                'query': 'query { boards (ids: 1363523728) { name columns { title id type } items_page { items { id name group { id } column_values { id value text } } } } }'
         })
         });
 
@@ -36,10 +36,7 @@ export default function EntreprisePage() {
         console.log('API Response:', data);
 
         const boardItems = data.data.boards[0].items_page.items;
-
         setEntrepriseData(boardItems);
-        // setEntrepriseData(data.data.boards[0]?.items || []);
-        console.log('Board:', boardItems); // Log the API response to the console
 
       } catch (error) {
         console.error('Error:', error);
@@ -70,6 +67,7 @@ return (
     <div className={styles.cardListContainer}>
         {entrepriseData.map((entreprise) => (
         <EntrepriseCard
+            id = {entreprise.id}
             banner={sgBanner}
             logo={sgLogo}
             name={entreprise.name}

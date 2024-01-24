@@ -24,19 +24,18 @@ export default function EntreprisePage() {
             'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMwOTYyODQ2MywiYWFpIjoxMSwidWlkIjo1NDI5MjE5OCwiaWFkIjoiMjAyNC0wMS0xMlQwOTowNTowNy4yOTNaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjA3MTA2MDUsInJnbiI6ImV1YzEifQ.Uwpi4ASIpksw4t2rVpOIgQpkbINC981CKyz0W9zbKV8'
           },
           body: JSON.stringify({
-            // 'query': 'query { boards (ids: 1363523728) { name columns {title id type} items { name group { id } column_values { id value text } } } } state id permissions }}'
-            'query': 'query { boards (ids: 1363523728) { name columns { title id type } items { name group { id } column_values { id value text } } } }'
+                'query': 'query { boards (ids: 1363523728) { name columns { title id type } items_page { items { name group { id } column_values { id value text } } } } }'
         })
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('API Response:', data); // Log the API response to the console
+        console.log('API Response:', data);
 
-        const boardItems = data.data.boards[0].items;
+        const boardItems = data.data.boards[0].items_page.items;
 
         setEntrepriseData(boardItems);
         // setEntrepriseData(data.data.boards[0]?.items || []);

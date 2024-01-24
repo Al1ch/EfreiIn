@@ -4,7 +4,11 @@ import AlumniProfile from "../AlumniProfile/AlumniProfile";
 import styles from "./AlumniTab.module.scss";
 import profilePic from "@/assets/images/Alain_Profile.jpg";
 
-const AlumniTab = () => {
+// const AlumniTab = () => {
+const AlumniTab: React.FC<{ data: any }> = ({ data }) => {
+  
+  console.log('AlumniTab ENTREPRISE DATA:', data)
+
   return (
     <div className={styles.container}>
       <SearchBar />

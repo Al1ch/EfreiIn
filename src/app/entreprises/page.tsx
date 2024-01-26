@@ -10,7 +10,11 @@ import FilterDropDown from "@/components/FilterDropDown/FilterDropDown";
 
 import React, { useState, useEffect } from "react";
 
-export default function EntreprisePage() {
+export default function EntreprisePage({
+  searchParams,
+}: {
+  readonly searchParams: { [key: string]: string | string[] | undefined };
+}) {
   //   const [entrepriseData, setEntrepriseData] = useState([]);
   const [entrepriseData, setEntrepriseData] = useState<any[]>([]);
 
@@ -35,7 +39,6 @@ export default function EntreprisePage() {
         }
 
         const data = await response.json();
-        console.log("API Response:", data);
 
         const boardItems = data.data.boards[0].items_page.items;
         setEntrepriseData(boardItems);
@@ -45,7 +48,7 @@ export default function EntreprisePage() {
     }
 
     fetchData();
-  }, []); // Empty dependency array means this effect runs once after the first render
+  }, [searchParams]); // Empty dependency array means this effect runs once after the first render
 
   return (
     <div className={styles.container}>
@@ -56,12 +59,16 @@ export default function EntreprisePage() {
           options={["Banque", "Assurance", "Finance"]}
         />
         <FilterDropDown
-          title="Secteur"
-          options={["Banque", "Assurance", "Finance"]}
+          title="Taille"
+          options={[
+            "< 10 salariés",
+            "Entre 10 et 1000 salariés",
+            "> 1000 salariés ",
+          ]}
         />
         <FilterDropDown
-          title="Secteur"
-          options={["Banque", "Assurance", "Finance"]}
+          title="Localisation"
+          options={["île-de-france", "Assurance", "Finance"]}
         />
       </div>
 

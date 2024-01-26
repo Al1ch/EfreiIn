@@ -5,19 +5,19 @@ import SearchIcon from "@/assets/vectors/search.svg";
 import { useRouter } from "next/navigation";
 import CloseIcon from "@/assets/vectors/close.svg";
 import Button from "@/components/Button/Button";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
-
+  const pathName = usePathname();
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
 
   const handleDelete = () => {
     setSearchValue("");
-    router.replace("/");
+    router.replace(`${pathName}`);
   };
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const SearchBar = () => {
           type="text"
           className={styles.input}
           onChange={handleChange}
-          placeholder="Rechercher un fichier "
+          placeholder="Rechercher une entreprise "
           value={searchValue}
         />
       </form>

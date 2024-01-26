@@ -5,4 +5,11 @@
         align-items: center;
         padding: 6rem;
         min-height: 100vh;
-        }
+}
+
+.containerLabel{
+  display: "flex";
+  flex-direction: column;
+  gap: 16px;    
+}          
+

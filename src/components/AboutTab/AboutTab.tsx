@@ -118,7 +118,7 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
         </div>
         <div className={styles.sectorSection}>
           <h3 className={styles.titleInfo}>Sector</h3>
-          <span className={styles.text}>{data.column_values[3].siret}</span>
+          <span className={styles.text}>{data.column_values[1].text}</span>
         </div>
         <div className={styles.sizeSection}>
           <h3 className={styles.titleInfo}>{"Taille de l'entreprise"}</h3>

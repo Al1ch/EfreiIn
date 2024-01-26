@@ -29,15 +29,10 @@ const EntrepriseCard = ({
   console.log("ENTREPRISE NAME", name);
   return (
     <div className={styles.container}>
-<<<<<<< dzung-radar-3
-      {/* <Link href={`entreprises/${name}`} className={styles.link}> */}
-      <Link href={`entreprises/${id}`} passHref className={styles.link}>
-=======
       <Link
         href={`entreprises/${name.split(" ").join("").toLowerCase()}`}
         className={styles.link}
       >
->>>>>>> feat(components): fileter
         <div className={styles.banner}>
           <Image
             src={banner}

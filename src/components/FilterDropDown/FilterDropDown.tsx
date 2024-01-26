@@ -8,10 +8,17 @@ type Props = {
   title: string;
   options: string[];
   handleCheck: (option: string, filterType: string) => void;
+  isOpen: boolean;
+  handleClick: () => void;
 };
 
-const FilterDropDown = ({ title, options, handleCheck }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FilterDropDown = ({
+  title,
+  options,
+  handleCheck,
+  handleClick,
+  isOpen,
+}: Props) => {
   // const [filter, setFilter] = useState<string>({
   //   Banque: false,
   //   Assurance: false,
@@ -20,11 +27,8 @@ const FilterDropDown = ({ title, options, handleCheck }: Props) => {
 
   return (
     <div className={cn(styles.container, { [styles.clickedButton]: isOpen })}>
-      <button
-        className={styles.labelContainer}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span className={styles.label}> {title} </span>
+      <button className={styles.labelContainer} onClick={handleClick}>
+        <span className={styles.label}> {title.toLowerCase()} </span>
         <Chevron className={styles.icon} />
       </button>
       <div className={cn(styles.dropDown, { [styles.clicked]: isOpen })}>

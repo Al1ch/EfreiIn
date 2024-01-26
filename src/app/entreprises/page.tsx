@@ -21,8 +21,10 @@ export default function EntreprisePage({
 }: {
   readonly searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  //   const [entrepriseData, setEntrepriseData] = useState([]);
   const [entrepriseData, setEntrepriseData] = useState<any[]>([]);
+  const [filterTab, setFilterTab] = useState<
+    "secteur" | "taille" | "localisation"
+  >();
 
   const [filter, setFilter] = useState<Filter>({
     secteur: [],
@@ -44,7 +46,13 @@ export default function EntreprisePage({
         }));
   };
 
-  console.log("FILTER", filter);
+  const handleActiveTab = (tab: "secteur" | "taille" | "localisation") => {
+    if (filterTab === tab) {
+      setFilterTab(undefined);
+    } else {
+      setFilterTab(tab);
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -78,6 +86,7 @@ export default function EntreprisePage({
     fetchData();
   }, [searchParams]); // Empty dependency array means this effect runs once after the first render
 
+  console.log("filtertab cliked", filterTab);
   return (
     <div className={styles.container}>
       <div className={styles.researchFilter}>
@@ -86,6 +95,8 @@ export default function EntreprisePage({
           title="Secteur"
           options={["Banque", "Assurance", "Finance"]}
           handleCheck={handleFilter}
+          isOpen={filterTab === "secteur"}
+          handleClick={() => handleActiveTab("secteur")}
         />
         <FilterDropDown
           title="Taille"
@@ -95,11 +106,15 @@ export default function EntreprisePage({
             "> 1000 salariés ",
           ]}
           handleCheck={handleFilter}
+          isOpen={filterTab === "taille"}
+          handleClick={() => handleActiveTab("taille")}
         />
         <FilterDropDown
           title="Localisation"
           options={["île-de-france", "Assurance", "Finance"]}
           handleCheck={handleFilter}
+          isOpen={filterTab === "localisation"}
+          handleClick={() => handleActiveTab("localisation")}
         />
       </div>
 

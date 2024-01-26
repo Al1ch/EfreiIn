@@ -10,44 +10,49 @@ import { useParams } from "next/navigation";
 import sgBanner from "@/assets/images/sg-banner.jpg";
 import sgLogo from "@/assets/images/sgLogo.png";
 
-// const CompanyProfile = () => {
 const CompanyProfile: React.FC<{ entrepriseId: any }> = ({ entrepriseId }) => {
-  const [thisEntrepriseData, setThisEntrepriseData] = useState<any>([]);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch("https://api.monday.com/v2", {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json',
-            'API-Version': '2023-10',
-            'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMwOTYyODQ2MywiYWFpIjoxMSwidWlkIjo1NDI5MjE5OCwiaWFkIjoiMjAyNC0wMS0xMlQwOTowNTowNy4yOTNaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjA3MTA2MDUsInJnbiI6ImV1YzEifQ.Uwpi4ASIpksw4t2rVpOIgQpkbINC981CKyz0W9zbKV8'
-          },
-          body: JSON.stringify({
-            'query': `query { boards (ids: 1363523728) { items_page (query_params: { ids: [${entrepriseId}] }) { items { column_values { id value text } group { id } id name state } } } }`
-          })
-        });
-
-        if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        
-        const apiData = await response.json();
-        console.log('CompanyProfile API RESPONSE:', apiData);
-        
-        const itemData = apiData.data.boards[0].items_page.items[0];
-        setThisEntrepriseData(itemData);
-
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
-    fetchData();
-  }, [entrepriseId, thisEntrepriseData]);
-
+  const [entrepriseData, setEntrepriseData] = useState<any>({});
+  const [isLoading, setIsLoading] = useState(true);
   const [tab, setTabValue] = useState("home");
 
+  async function fetchData() {
+    try {
+      const response = await fetch("https://api.monday.com/v2", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMwOTYyODQ2MywiYWFpIjoxMSwidWlkIjo1NDI5MjE5OCwiaWFkIjoiMjAyNC0wMS0xMlQwOTowNTowNy4yOTNaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjA3MTA2MDUsInJnbiI6ImV1YzEifQ.Uwpi4ASIpksw4t2rVpOIgQpkbINC981CKyz0W9zbKV8",
+        },
+        body: JSON.stringify({
+          query:
+            "query { boards (ids: 1363523728) { name columns { title id type } items_page { items { id name group { id } column_values { id value text } } } } }",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      const boardItems = data.data.boards[0].items_page.items.filter(
+        (data: any) => {
+          return data.name.split(" ").join("").toLowerCase() === entrepriseId;
+        }
+      );
+      setEntrepriseData({ ...boardItems[0] });
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []); // Empty dependency array means this effect runs once after the first render
+
+  if (isLoading) return <div>loading...</div>;
   return (
     <div
       className={cn(styles.containerProfile, {
@@ -60,12 +65,12 @@ const CompanyProfile: React.FC<{ entrepriseId: any }> = ({ entrepriseId }) => {
         })}
       >
         <CompanyBanner
-            id = {thisEntrepriseData.id}
-            banner={sgBanner}
-            logo={sgLogo}
-            name={thisEntrepriseData.name}
-            description='{CompanyProfile.CompanyBanner.description}'
-            details='{CompanyProfile.CompanyBanner.details}'
+          id={entrepriseData.id}
+          banner={sgBanner}
+          logo={sgLogo}
+          name={entrepriseData.name}
+          description={"test"}
+          details="{CompanyProfile.CompanyBanner.details}"
         />
         <div className={styles.tabContainer}>
           <button
@@ -94,10 +99,14 @@ const CompanyProfile: React.FC<{ entrepriseId: any }> = ({ entrepriseId }) => {
           </button>
         </div>
       </div>
-
-      {tab === "home" && thisEntrepriseData && <HomeTab data={thisEntrepriseData} />}
-      {tab === "about" && thisEntrepriseData && <AboutTab data={thisEntrepriseData} />}
-      {tab === "alumni" && thisEntrepriseData && <AlumniTab data={thisEntrepriseData} />}
+      {void console.log("tab", tab)}
+      {tab === "home" && entrepriseData && (
+        <HomeTab data={entrepriseData} setTabState={setTabValue} />
+      )}
+      {tab === "about" && entrepriseData && <AboutTab data={entrepriseData} />}
+      {tab === "alumni" && entrepriseData && (
+        <AlumniTab data={entrepriseData} />
+      )}
       {/* {tab === "event" && <div>Event</div>} */}
     </div>
   );

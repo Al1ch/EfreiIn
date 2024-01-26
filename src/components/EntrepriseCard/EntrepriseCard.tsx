@@ -26,7 +26,6 @@ const EntrepriseCard = ({
   location,
   size,
 }: Props) => {
-  console.log("ENTREPRISE NAME", name);
   return (
     <div className={styles.container}>
       <Link

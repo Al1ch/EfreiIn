@@ -7,10 +7,17 @@ import cn from "classnames";
 type Props = {
   title: string;
   options: string[];
+  handleCheck: (option: string, filterType: string) => void;
 };
 
-const FilterDropDown = ({ title, options }: Props) => {
+const FilterDropDown = ({ title, options, handleCheck }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  // const [filter, setFilter] = useState<string>({
+  //   Banque: false,
+  //   Assurance: false,
+  //   Immobilier: false,
+  // });
+
   return (
     <div className={cn(styles.container, { [styles.clickedButton]: isOpen })}>
       <button
@@ -22,9 +29,13 @@ const FilterDropDown = ({ title, options }: Props) => {
       </button>
       <div className={cn(styles.dropDown, { [styles.clicked]: isOpen })}>
         {options.map((option) => (
-          <span key={option} className={styles.itemDropDown}>
+          <div key={option} className={styles.itemDropDown}>
+            <input
+              type="checkbox"
+              onClick={() => handleCheck(option, title.toLowerCase())}
+            ></input>
             {option}
-          </span>
+          </div>
         ))}
       </div>
     </div>

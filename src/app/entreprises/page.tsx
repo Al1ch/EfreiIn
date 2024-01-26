@@ -10,6 +10,12 @@ import FilterDropDown from "@/components/FilterDropDown/FilterDropDown";
 
 import React, { useState, useEffect } from "react";
 
+type Filter = {
+  secteur: string[];
+  taille: string[];
+  localisation: string[];
+};
+
 export default function EntreprisePage({
   searchParams,
 }: {
@@ -17,6 +23,28 @@ export default function EntreprisePage({
 }) {
   //   const [entrepriseData, setEntrepriseData] = useState([]);
   const [entrepriseData, setEntrepriseData] = useState<any[]>([]);
+
+  const [filter, setFilter] = useState<Filter>({
+    secteur: [],
+    taille: [],
+    localisation: [],
+  });
+
+  const handleFilter = (option: string, filterType: string): void => {
+    !filter.secteur.includes(option)
+      ? setFilter((prev) => ({
+          ...prev,
+          [filterType]: [...prev[filterType as keyof typeof filter], option],
+        }))
+      : setFilter((prev) => ({
+          ...prev,
+          [filterType]: prev[filterType as keyof typeof filter].filter(
+            (filterOption) => filterOption !== option
+          ),
+        }));
+  };
+
+  console.log("FILTER", filter);
 
   useEffect(() => {
     async function fetchData() {
@@ -57,6 +85,7 @@ export default function EntreprisePage({
         <FilterDropDown
           title="Secteur"
           options={["Banque", "Assurance", "Finance"]}
+          handleCheck={handleFilter}
         />
         <FilterDropDown
           title="Taille"
@@ -65,10 +94,12 @@ export default function EntreprisePage({
             "Entre 10 et 1000 salariés",
             "> 1000 salariés ",
           ]}
+          handleCheck={handleFilter}
         />
         <FilterDropDown
           title="Localisation"
           options={["île-de-france", "Assurance", "Finance"]}
+          handleCheck={handleFilter}
         />
       </div>
 

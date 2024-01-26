@@ -14,9 +14,30 @@
     } 
 }
 
+.dropDown{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    min-width: 100%;
+    z-index: 100;
+    justify-content: flex-start;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+    min-height: 25px;
+    align-items: center;
+    z-index: 1;
+    &.clicked{
+        opacity: 1;
+    }
+}
+
 
 .itemDropDown{
     display: flex;
+    gap: 8px;
     min-width: 300px;
     min-height: 45px;
     align-items: center;
@@ -51,23 +72,4 @@
     }
 }
 
-.dropDown{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    transform: translateY(100%);
-    min-width: 100%;
-    z-index: 100;
-    justify-content: flex-start;
-    opacity: 0;
-    transition: opacity 150ms ease-in-out;
-    min-height: 25px;
-    align-items: center;
-    z-index: 1;
-    &.clicked{
-        opacity: 1;
-    }
-}
 

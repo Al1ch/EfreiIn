@@ -11,24 +11,26 @@
     color: white;
     font: $text;
     &.sm{
-        padding: 0;
         min-width: 20px;
         background-color: transparent;
+        padding: 10px;
+        border-radius: 16px;
 
     }
     &.md{
-        padding: 12px;
-
+        padding: 14px;
+        max-width: 200px;
     }
     &.lg{
-        min-width: 175px;
-        padding: 12px;
+        width: 100%;
+        padding: 8px;
+        border-radius: 24px;
 
     }
     &.blue{
-        background-color: #1e90ff;
+        background-color: #377fbc;
         &:hover{
-            background-color: hsl(210, 100%, 50%);
+            background-color: hsl(208, 86%, 22%);
 
         }
     }
@@ -54,6 +56,23 @@
             background-color: hsla(0, 100%, 50%, 0.735);
         }
     }
+    &.transparent{
+        background-color: transparent;
+        color: #377fbc;
+        border: 1px solid #377fbc;
+        &:hover{
+            background-color: #377ebc;
+            color: white;
+         
+        }
+        &:hover > * {
+            path{
+                fill: white;
+            }
+        }
+  
+    }
+
     &.disabled{
         pointer-events: none;
     }
@@ -70,4 +89,5 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    
 }

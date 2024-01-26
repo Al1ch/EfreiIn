@@ -12,20 +12,22 @@ type Props = {
 const FilterDropDown = ({ title, options }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <button className={styles.container} onClick={() => setIsOpen(!isOpen)}>
-      <div className={styles.labelContainer}>
-        <span className={styles.label}> Secteur </span>
+    <div className={cn(styles.container, { [styles.clickedButton]: isOpen })}>
+      <button
+        className={styles.labelContainer}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className={styles.label}> {title} </span>
         <Chevron className={styles.icon} />
+      </button>
+      <div className={cn(styles.dropDown, { [styles.clicked]: isOpen })}>
+        {options.map((option) => (
+          <span key={option} className={styles.itemDropDown}>
+            {option}
+          </span>
+        ))}
       </div>
-      {options.map((option) => (
-        <div
-          className={cn(styles.dropDown, { [styles.clicked]: isOpen })}
-          key={option}
-        >
-          <span>{option}</span>
-        </div>
-      ))}
-    </button>
+    </div>
   );
 };
 

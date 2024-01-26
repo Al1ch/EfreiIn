@@ -4,9 +4,9 @@ import styles from "./Button.module.scss";
 import cn from "classnames";
 
 type Props = ComponentPropsWithoutRef<"button"> & {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   size?: "sm" | "md" | "lg";
-  backgroundColor?: "blue" | "white" | "red" | "gray";
+  backgroundColor?: "blue" | "white" | "red" | "gray" | "transparent";
 };
 
 const Button = ({

@@ -14,7 +14,7 @@ const Navbar = () => {
       <EfreiLogo className={styles.logo} />
       <SearchBar />
       <div className={styles.itemContainer}>
-        <Link href="/Reseau" className={styles.link}>
+        <Link href="/network" className={styles.link}>
           <span className={styles.item}>
             <NetworkSvg /> Réseau
           </span>

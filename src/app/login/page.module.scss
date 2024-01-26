@@ -1,0 +1,117 @@
+.container{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: flex-end;
+    max-height: 100vh;
+    align-items: center;
+}
+
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 126px;
+
+}
+
+.loginContent{
+    min-height: 550px;
+    min-width: 500px;
+    background-color: white;
+    display: flex;
+    padding: 48px;
+    flex-direction: column;
+    gap: 32px;
+    border-radius: 8px;
+    left: 50%;
+    top: 50%;
+    transform: translate(25%,-50%);
+    position: absolute
+}
+
+
+.titleContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title{
+    font-size: 48px;
+    font-family: Helvetica,Arial,sans-serif;
+    color: #163767;
+}
+
+.underTitle{
+    font-size: 20px;
+    font-family: Helvetica,Arial,sans-serif;
+    color: #163767;
+}
+
+.authArea{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.backgroundImage{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+.input{
+    padding:12px;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+.link{
+    font-size: 14px;
+    color: #163767;
+    align-self: flex-end;
+}
+
+.label{
+    font-size: 10px;
+    padding: 2px;
+    position: absolute;
+    left: 0;
+    transform: translate(20px, -50%);
+    background-color: white;
+}
+
+.inputContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.description{
+    flex-wrap: wrap;
+    max-width: 375px;
+    font-size: 12px;
+  
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+.labelButton{
+    font-size: 14px;
+    cursor: pointer;
+}

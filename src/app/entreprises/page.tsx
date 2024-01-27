@@ -77,6 +77,8 @@ export default function EntreprisePage({
         const data = await response.json();
 
         const boardItems = data.data.boards[0].items_page.items;
+        console.log("BOARDITEMS", boardItems[0].name);
+
         setEntrepriseData(boardItems);
       } catch (error) {
         console.error("Error:", error);
@@ -87,7 +89,8 @@ export default function EntreprisePage({
   }, [searchParams]); // Empty dependency array means this effect runs once after the first render
 
   const handleAllFilters = (entreprise: any) => {
-    if (filter.secteur.length === 0 && filter.taille.length === 0) return true;
+    if (filter.secteur.length === 0 && searchParams.search === undefined)
+      return true;
 
     const filteredBySearch =
       entreprise.name
@@ -95,9 +98,26 @@ export default function EntreprisePage({
         .includes(searchParams.search?.toString().toLowerCase()) ||
       searchParams.search === undefined;
 
-    const filteredBySector = filter.secteur.includes(
+    console.log(
+      "VALUE",
       entreprise.column_values[1].value
+        .split("")
+        .filter((letter: string) => letter != '"')
+        .join(""),
+      filter.secteur[0] ===
+        entreprise.column_values[1].value
+          .split("")
+          .filter((letter: string) => letter != '"')
+          .join("")
     );
+
+    const filteredBySector =
+      filter.secteur.includes(
+        entreprise.column_values[1].value
+          .split("")
+          .filter((letter: string) => letter != '"')
+          .join("")
+      ) || filter.secteur.length === 0;
 
     // const sizeDictionnary = {
     //   "< 10 salariés": parseInt(entreprise.column_values[2].value) < 10,
@@ -129,7 +149,7 @@ export default function EntreprisePage({
         <SearchBar placeholder="Rechercher une entreprise" />
         <FilterDropDown
           title="Secteur"
-          options={["Banque", "Assurance", "Finance"]}
+          options={["charpentier métallique", "Assurance", "Finance"]}
           handleCheck={handleFilter}
           isOpen={filterTab === "secteur"}
           handleClick={() => handleActiveTab("secteur")}

@@ -99,7 +99,6 @@ const CompanyProfile: React.FC<{ entrepriseId: any }> = ({ entrepriseId }) => {
           </button>
         </div>
       </div>
-      {void console.log("tab", tab)}
       {tab === "home" && entrepriseData && (
         <HomeTab data={entrepriseData} setTabState={setTabValue} />
       )}

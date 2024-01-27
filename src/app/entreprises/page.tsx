@@ -46,6 +46,14 @@ export default function EntreprisePage({
         }));
   };
 
+  // const filteredEntrepriseData = entrepriseData.filter((entreprise) => {
+  //   const filteredBySecteur = filter.secteur.includes(
+  //   );
+  //   const filteredBySearch = entreprise.name.includes(searchParams);
+  //   // const filteredByTaille = filter.taille;
+  //   return filteredBySecteur || filteredBySearch;
+  // });
+
   const handleActiveTab = (tab: "secteur" | "taille" | "localisation") => {
     if (filterTab === tab) {
       setFilterTab(undefined);
@@ -53,6 +61,8 @@ export default function EntreprisePage({
       setFilterTab(tab);
     }
   };
+
+  console.log("SEARCHOARAMs", searchParams.search);
 
   useEffect(() => {
     async function fetchData() {
@@ -86,7 +96,25 @@ export default function EntreprisePage({
     fetchData();
   }, [searchParams]); // Empty dependency array means this effect runs once after the first render
 
-  console.log("filtertab cliked", filterTab);
+  const handleAllFilters = (entreprise: any) => {
+    const filteredBySearch =
+      entreprise.name.toLowerCase().includes(searchParams.search) ||
+      searchParams.search === undefined;
+    const filteredByFIlter =
+      filter.secteur.includes(entreprise.column_values[1].value) ||
+      filter.secteur.length === 0;
+
+    return filteredBySearch && filteredByFIlter;
+  };
+
+  const filteredEntrepriseData = entrepriseData.filter((entreprise) =>
+    handleAllFilters(entreprise)
+  );
+
+  console.log(
+    "Filtered entreprise by search and filter ",
+    filteredEntrepriseData
+  );
   return (
     <div className={styles.container}>
       <div className={styles.researchFilter}>
@@ -119,7 +147,7 @@ export default function EntreprisePage({
       </div>
 
       <div className={styles.cardListContainer}>
-        {entrepriseData.map((entreprise) => (
+        {filteredEntrepriseData.map((entreprise) => (
           <EntrepriseCard
             key={entreprise.id}
             id={entreprise.id}

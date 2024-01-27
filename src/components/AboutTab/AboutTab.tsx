@@ -5,8 +5,6 @@ import Chart from "chart.js/auto";
 
 // const AboutTab = () => {
 const AboutTab: React.FC<{ data: any }> = ({ data }) => {
-  console.log("Data About ", data);
-
   function normalizeData(numbers: string[]): number[] {
     const numericValues = numbers.map((num) => parseFloat(num));
 
@@ -56,8 +54,6 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
       ]);
 
       const normalizedDataWithZeros = addZeroAfterEachNumber(normalizedData);
-
-      console.log("NORMALIZE DATA", normalizedDataWithZeros);
 
       const radarChartData = {
         labels: [

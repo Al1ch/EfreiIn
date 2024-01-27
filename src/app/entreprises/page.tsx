@@ -126,7 +126,7 @@ export default function EntreprisePage({
   return (
     <div className={styles.container}>
       <div className={styles.researchFilter}>
-        <SearchBar placeholder="rechercher une entreprise" />
+        <SearchBar placeholder="Rechercher une entreprise" />
         <FilterDropDown
           title="Secteur"
           options={["Banque", "Assurance", "Finance"]}

@@ -35,7 +35,7 @@ const EntrepriseCard = ({
         <div className={styles.banner}>
           <Image
             src={banner}
-            width={100}
+            width={275}
             height={100}
             alt=""
             className={styles.bannerImage}

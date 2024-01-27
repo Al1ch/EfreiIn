@@ -5,9 +5,16 @@ import SearchIcon from "@/assets/vectors/search.svg";
 import { useRouter } from "next/navigation";
 import CloseIcon from "@/assets/vectors/close.svg";
 import Button from "@/components/Button/Button";
+import cn from "classnames";
 import { useParams, usePathname } from "next/navigation";
 
-const SearchBar = () => {
+type Props = {
+  placeholder?: string;
+  backgroundColor?: string;
+  rounded?: boolean;
+};
+
+const SearchBar = ({ placeholder, backgroundColor, rounded }: Props) => {
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
   const pathName = usePathname();
@@ -36,23 +43,29 @@ const SearchBar = () => {
   }, [router, searchValue]);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={cn(
+        styles.container,
+        { [styles.rounded]: rounded },
+        { [styles.grey]: backgroundColor === "grey" }
+      )}
+    >
       <SearchIcon className={styles.icon} />
       <form>
         <input
           type="text"
           className={styles.input}
           onChange={handleChange}
-          placeholder="Rechercher une entreprise "
+          placeholder={placeholder}
           value={searchValue}
         />
       </form>
 
-      {searchValue && (
-        <Button size="sm" onClick={handleDelete}>
-          <CloseIcon className={styles.icon} />
-        </Button>
-      )}
+      <Button size="sm" onClick={handleDelete}>
+        <CloseIcon
+          className={cn(styles.closeIcon, { [styles.appear]: searchValue })}
+        />
+      </Button>
     </div>
   );
 };

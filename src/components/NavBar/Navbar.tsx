@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <EfreiLogo className={styles.logo} />
-      <SearchBar />
+      <SearchBar rounded={true} backgroundColor="grey" />
       <div className={styles.itemContainer}>
         <Link href="/network" className={styles.link}>
           <span className={styles.item}>

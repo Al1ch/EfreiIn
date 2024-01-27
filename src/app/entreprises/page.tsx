@@ -46,14 +46,6 @@ export default function EntreprisePage({
         }));
   };
 
-  // const filteredEntrepriseData = entrepriseData.filter((entreprise) => {
-  //   const filteredBySecteur = filter.secteur.includes(
-  //   );
-  //   const filteredBySearch = entreprise.name.includes(searchParams);
-  //   // const filteredByTaille = filter.taille;
-  //   return filteredBySecteur || filteredBySearch;
-  // });
-
   const handleActiveTab = (tab: "secteur" | "taille" | "localisation") => {
     if (filterTab === tab) {
       setFilterTab(undefined);
@@ -61,8 +53,6 @@ export default function EntreprisePage({
       setFilterTab(tab);
     }
   };
-
-  console.log("SEARCHOARAMs", searchParams.search);
 
   useEffect(() => {
     async function fetchData() {
@@ -97,28 +87,46 @@ export default function EntreprisePage({
   }, [searchParams]); // Empty dependency array means this effect runs once after the first render
 
   const handleAllFilters = (entreprise: any) => {
-    const filteredBySearch =
-      entreprise.name.toLowerCase().includes(searchParams.search) ||
-      searchParams.search === undefined;
-    const filteredByFIlter =
-      filter.secteur.includes(entreprise.column_values[1].value) ||
-      filter.secteur.length === 0;
+    if (filter.secteur.length === 0 && filter.taille.length === 0) return true;
 
-    return filteredBySearch && filteredByFIlter;
+    const filteredBySearch =
+      entreprise.name
+        .toLowerCase()
+        .includes(searchParams.search?.toString().toLowerCase()) ||
+      searchParams.search === undefined;
+
+    const filteredBySector = filter.secteur.includes(
+      entreprise.column_values[1].value
+    );
+
+    // const sizeDictionnary = {
+    //   "< 10 salariés": parseInt(entreprise.column_values[2].value) < 10,
+    //   "Entre 10 et 1000 salariés":
+    //     parseInt(entreprise.column_values[2].value) < 1000,
+    //   "> 1000 salariés ": parseInt(entreprise.column_values[2].value) > 1001,
+    // };
+
+    // const filteredBySize = filter.taille.some((size) => {
+    //   console.log(
+    //     "BOOOLEAN",
+    //     sizeDictionnary["Entre 10 et 1000 salariés"],
+    //     parseInt(entreprise.column_values[2].value)
+    //   );
+    //   return sizeDictionnary[size as keyof typeof sizeDictionnary];
+    // });
+
+    // return filteredBySearch && (filteredBySector || filteredBySize);
+    return filteredBySearch && filteredBySector;
   };
 
   const filteredEntrepriseData = entrepriseData.filter((entreprise) =>
     handleAllFilters(entreprise)
   );
 
-  console.log(
-    "Filtered entreprise by search and filter ",
-    filteredEntrepriseData
-  );
   return (
     <div className={styles.container}>
       <div className={styles.researchFilter}>
-        <SearchBar />
+        <SearchBar placeholder="rechercher une entreprise" />
         <FilterDropDown
           title="Secteur"
           options={["Banque", "Assurance", "Finance"]}

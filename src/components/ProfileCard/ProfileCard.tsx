@@ -1,55 +1,64 @@
 import React from "react";
-        import styles from "./ProfileCard.module.scss";
-        import Image, { StaticImageData } from "next/image";
-        import Button from "@/components/Button/Button";
-        import alainImage from "@/assets/images/Alain_Profile.jpg";
-        import efreiLogo from "@/assets/images/efreiImage.png";
-        import sgBg from "@/assets/images/sg-banner.jpg";
-        import Link from "next/link";
-        import AddProfile from "@/assets/vectors/addProfile.svg";
+import styles from "./ProfileCard.module.scss";
+import Image, { StaticImageData } from "next/image";
+import Button from "@/components/Button/Button";
+import sgBg from "@/assets/images/sg-banner.jpg";
+import Link from "next/link";
+import AddProfile from "@/assets/vectors/addProfile.svg";
+import profilePic1 from "@/assets/images/profilepic_1.png";
+import profilePic2 from "@/assets/images/profilepic_2.png";
+import profilePic3 from "@/assets/images/profilepic_3.png";
+import profilePic4 from "@/assets/images/profilepic_4.png";
+import profilePic5 from "@/assets/images/profilepic_5.png";
 
-        type Props = {
-        // banner: string | StaticImageData;
-        name: string;
-        job: string;
-        link: string;
-        };
 
-        const ProfileCard = ({
-        // banner,
-        name,
-        job,
-        link,
-        }: Props) => {
-        return (
-<div className={styles.container}>
-<div className={styles.topContainer}>
-<Image className={styles.banner} alt="" src={sgBg} />
-<Image
-        // src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Ffr%2Fsearch%2Fdefault-profile-image&psig=AOvVaw0f5OXXjKJpmAedPdv47Vlf&ust=1706707082489000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCIj9s7qZhYQDFQAAAAAdAAAAABAE"
-        src={alainImage}
-        width={100}
-        height={100}
-        alt=""
-        className={styles.imageProfile}
+const getRandomElement = <T,>(array: T[]): T => {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+};
+
+const profilePics = [profilePic1, profilePic2, profilePic3, profilePic4, profilePic5];
+
+type Props = {
+  name: string;
+  job: string;
+  link: string;
+};
+
+const ProfileCard = ({
+  name,
+  job,
+  link,
+}: Props) => {
+
+  const randomPic = getRandomElement(profilePics);
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.topContainer}>
+        <Image className={styles.banner} alt="" src={sgBg} />
+        <Image
+            src={randomPic}
+            width={100}
+            height={100}
+            alt=""
+            className={styles.imageProfile}
         />
-        </div>
-<div className={styles.description}>
-<span className={styles.name}>{name}</span>
-<span className={styles.job}>{job}</span>
-        </div>
-
-<Link
-        // href="https://www.linkedin.com/in/alain-chea-b53b1b1a2/"
+      </div>
+      <div className={styles.description}>
+        <span className={styles.name}>{name}</span>
+        <span className={styles.job}>{job}</span>
+      </div>
+      <Link
         href={link}
         className={styles.link}
-        >
-<Button backgroundColor="transparent" size="lg">
-<AddProfile className={styles.icon} /> Se Connecter{" "}
-</Button>
-        </Link>
-        </div>
-        );
-        };
+      >
+      <Button backgroundColor="transparent" size="lg">
+        <AddProfile className={styles.icon} /> Se Connecter{" "}
+      </Button>
+      </Link>
+    </div>
+  );
+};
 
-        export default ProfileCard;
+export default ProfileCard;

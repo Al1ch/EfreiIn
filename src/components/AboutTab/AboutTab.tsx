@@ -108,7 +108,7 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
         >{data.column_values[16].text}</p>
         <div className={styles.websiteSection}>
           <h3 className={styles.titleInfo}>Site web</h3>
-          <Link href={`#`} className={styles.link}>
+          <Link href={data.column_values[14].text} className={styles.link}>
             {data.column_values[14].text}
           </Link>
         </div>

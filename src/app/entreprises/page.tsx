@@ -62,11 +62,11 @@ export default function EntreprisePage({
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMwOTYyODQ2MywiYWFpIjoxMSwidWlkIjo1NDI5MjE5OCwiaWFkIjoiMjAyNC0wMS0xMlQwOTowNTowNy4yOTNaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjA3MTA2MDUsInJnbiI6ImV1YzEifQ.Uwpi4ASIpksw4t2rVpOIgQpkbINC981CKyz0W9zbKV8",
-          },
+              "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMxNTYyNjUyMiwiYWFpIjoxMSwidWlkIjo1NTE5NTA0MSwiaWFkIjoiMjAyNC0wMS0zMFQxMjoyNDo0MS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjEwMzY3NDYsInJnbiI6ImV1YzEifQ.sQiLsu6ClUQX4kk0GvZlWCJWapFAvQAFMdC-lCNgM4w"
+            },
           body: JSON.stringify({
             query:
-              "query { boards (ids: 1363523728) { name columns { title id type } items_page { items { id name group { id } column_values { id value text } } } } }",
+              "query { boards (ids: 1380938152) { name columns { title id type } items_page { items { id name group { id } column_values { id value text } } } } }",
           }),
         });
 
@@ -77,7 +77,7 @@ export default function EntreprisePage({
         const data = await response.json();
 
         const boardItems = data.data.boards[0].items_page.items;
-        console.log("BOARDITEMS", boardItems[0].name);
+        console.log("BOARDITEMS", boardItems);
 
         setEntrepriseData(boardItems);
       } catch (error) {
@@ -182,9 +182,9 @@ export default function EntreprisePage({
             banner={sgBanner}
             logo={sgLogo}
             name={entreprise.name}
-            sector={entreprise.column_values[1].value}
-            location="where??????" // y a pas colonne location
-            size={entreprise.column_values[2].value}
+            sector={entreprise.column_values[0].text}
+            location={entreprise.column_values[12].text}
+            size={`${entreprise.column_values[1].text} salariés`}
           />
         ))}
       </div>

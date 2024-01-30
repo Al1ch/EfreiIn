@@ -12,14 +12,14 @@ const HomeTab = ({ setTabState, data }: Props) => {
   return (
     <div className={styles.homeTabContent}>
       <div className={styles.kpiSection}>
-        <KpiCard title="Nombre d'employés" value={data.column_values[2].text} />
+        <KpiCard title="Nombre d'employés" value={data.column_values[1].text} />
         <KpiCard
           title="Nombre de stagiaires"
-          value={data.column_values[7].text}
+          value={data.column_values[6].text}
         />
         <KpiCard
           title="Nombre d'alternants"
-          value={data.column_values[8].text}
+          value={data.column_values[7].text}
         />
       </div>
       <div className={styles.companyInfoContainer}>

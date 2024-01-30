@@ -45,12 +45,12 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
       // Extract the relevant data for the radar chart
       // Normalize data
       const normalizedData = normalizeData([
-        // data.column_values[2].text,     // effectif (chiffre trop grande => bye)
-        // data.column_values[6].text,     // tax d'apprentissage (chiffre trop grande => bye)
-        data.column_values[7].text, // nb stagiaires
-        data.column_values[8].text, // nb alternants
-        data.column_values[9].text, // nb alumnis
-        data.column_values[10].text, // nb actions realisees
+        // data.column_values[1].text,     // effectif (chiffre trop grande => bye)
+        // data.column_values[5].text,     // tax d'apprentissage (chiffre trop grande => bye)
+        data.column_values[6].text, // nb stagiaires
+        data.column_values[7].text, // nb alternants
+        data.column_values[8].text, // nb alumnis
+        data.column_values[9].text, // nb actions realisees
       ]);
 
       const normalizedDataWithZeros = addZeroAfterEachNumber(normalizedData);
@@ -109,17 +109,17 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
         <div className={styles.websiteSection}>
           <h3 className={styles.titleInfo}>Site web</h3>
           <Link href={`#`} className={styles.link}>
-            {`data.column_values[<url_index>].text`}
+            {`data.column_values[12].text`}
           </Link>
         </div>
         <div className={styles.sectorSection}>
           <h3 className={styles.titleInfo}>Sector</h3>
-          <span className={styles.text}>{data.column_values[1].text}</span>
+          <span className={styles.text}>{data.column_values[0].text}</span>
         </div>
         <div className={styles.sizeSection}>
           <h3 className={styles.titleInfo}>{"Taille de l'entreprise"}</h3>
           <span className={styles.text}>
-            {data.column_values[2].text} employés
+            {data.column_values[1].text} employés
           </span>
         </div>
       </div>

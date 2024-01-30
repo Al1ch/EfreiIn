@@ -28,10 +28,7 @@ const EntrepriseCard = ({
 }: Props) => {
   return (
     <div className={styles.container}>
-      <Link
-        href={`entreprises/${name.split(" ").join("").toLowerCase()}`}
-        className={styles.link}
-      >
+      <Link href={`entreprises/${id}`} passHref className={styles.link}>
         <div className={styles.banner}>
           <Image
             src={banner}

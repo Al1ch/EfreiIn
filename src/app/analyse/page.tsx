@@ -44,7 +44,7 @@ const Analyse: React.FC = () => {
           },
           body: JSON.stringify({
             query:
-              "query { boards (ids: 1380733624) { name columns { title id type } items_page { items { name group { id } column_values { id value text } } } } }",
+              "query { boards (ids: 1380938152) { name columns { title id type } items_page { items { name group { id } column_values { id value text } } } } }",
           }),
         });
 
@@ -206,7 +206,6 @@ const Analyse: React.FC = () => {
 
   const actionNumber = entrepriseData.map((data) => {
     const value = parseInt(data.column_values[9].value.replace(/"/g, ""), 10);
-    console.log("VALUE:", data.column_values[9].value);
     return isNaN(value) ? 0 : value;
   });
 

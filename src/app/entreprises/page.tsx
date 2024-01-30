@@ -180,11 +180,11 @@ export default function EntreprisePage({
             key={entreprise.id}
             id={entreprise.id}
             banner={sgBanner}
-            logo={sgLogo}
+            logo={sgLogo} // column index 12
             name={entreprise.name}
-            sector={entreprise.column_values[0].text}
-            location={entreprise.column_values[12].text}
-            size={`${entreprise.column_values[1].text} salariés`}
+            sector={entreprise.column_values[1].text}
+            location={entreprise.column_values[13].text}
+            size={`${entreprise.column_values[2].text} salariés`}
           />
         ))}
       </div>

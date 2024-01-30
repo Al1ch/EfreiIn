@@ -105,16 +105,16 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
       <div className={styles.contentContainer}>
         <p
           className={styles.description}
-        >{`AboutTab.data.column_values[<desc_index>].text`}</p>
+        >{data.column_values[16].text}</p>
         <div className={styles.websiteSection}>
           <h3 className={styles.titleInfo}>Site web</h3>
           <Link href={`#`} className={styles.link}>
-            {`data.column_values[12].text`}
+            {data.column_values[14].text}
           </Link>
         </div>
         <div className={styles.sectorSection}>
           <h3 className={styles.titleInfo}>Sector</h3>
-          <span className={styles.text}>{data.column_values[0].text}</span>
+          <span className={styles.text}>{data.column_values[1].text}</span>
         </div>
         <div className={styles.sizeSection}>
           <h3 className={styles.titleInfo}>{"Taille de l'entreprise"}</h3>

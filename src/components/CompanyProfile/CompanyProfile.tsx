@@ -68,8 +68,8 @@ const CompanyProfile: React.FC<{ entrepriseId: any }> = ({ entrepriseId }) => {
           banner={sgBanner}
           logo={sgLogo}
           name={entrepriseData.name}
-          description={"test"}
-          details="{CompanyProfile.CompanyBanner.details}"
+          slogan={entrepriseData.column_values[15].text}
+          details={`${entrepriseData.column_values[1].text} - ${entrepriseData.column_values[13].text} - ${entrepriseData.column_values[2].text} employés`}
         />
         <div className={styles.tabContainer}>
           <button

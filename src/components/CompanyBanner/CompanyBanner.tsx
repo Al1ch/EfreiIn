@@ -11,7 +11,7 @@ type Props = {
   banner: string | StaticImageData;
   logo: string | StaticImageData;
   name: string;
-  description: string;
+  slogan: string;
   details: string;
 };
 
@@ -20,7 +20,7 @@ const CompanyBanner = ({
   banner,
   logo,
   name,
-  description,
+  slogan,
   details,
 }: Props) => {
   return (
@@ -35,7 +35,7 @@ const CompanyBanner = ({
         <div>
           <h1 className={styles.title}>{name}</h1>
           {/* <p className={styles.description}>{`c'est vous l'avenir`}</p> */}
-          <p className={styles.description}>{description}</p>
+          <p className={styles.description}>{slogan}</p>
         </div>
         {/* <p className={styles.details}>
           Services bancaires - Paris - 44 017 employés

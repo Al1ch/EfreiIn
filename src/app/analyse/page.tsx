@@ -39,12 +39,11 @@ const Analyse: React.FC = () => {
           method: "post",
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMwOTYyODQ2MywiYWFpIjoxMSwidWlkIjo1NDI5MjE5OCwiaWFkIjoiMjAyNC0wMS0xMlQwOTowNTowNy4yOTNaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjA3MTA2MDUsInJnbiI6ImV1YzEifQ.Uwpi4ASIpksw4t2rVpOIgQpkbINC981CKyz0W9zbKV8",
+            'Authorization': "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMxNTYyNjUyMiwiYWFpIjoxMSwidWlkIjo1NTE5NTA0MSwiaWFkIjoiMjAyNC0wMS0zMFQxMjoyNDo0MS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjEwMzY3NDYsInJnbiI6ImV1YzEifQ.sQiLsu6ClUQX4kk0GvZlWCJWapFAvQAFMdC-lCNgM4w"
           },
           body: JSON.stringify({
             query:
-              "query { boards (ids: 1363523728) { name columns { title id type } items_page { items { name group { id } column_values { id value text } } } } }",
+              "query { boards (ids: 1380733624) { name columns { title id type } items_page { items { name group { id } column_values { id value text } } } } }",
           }),
         });
 
@@ -205,8 +204,9 @@ const Analyse: React.FC = () => {
   };
 
   const actionNumber = entrepriseData.map((data) => {
-    const value = parseInt(data.column_values[10].value.replace(/"/g, ""), 10);
-    console.log("VALUE:", data.column_values[10].value);
+    // const value = parseInt(data.column_values[9].value.replace(/"/g, ""), 10);
+    const value = parseInt(data.column_values[9].text, 10);
+    console.log("VALUE:", value);
     return isNaN(value) ? 0 : value;
   });
 
@@ -215,7 +215,7 @@ const Analyse: React.FC = () => {
     const groupedData = new Map();
 
     entrepriseData.forEach((data) => {
-      const eventType = data.column_values[11].text;
+      const eventType = data.column_values[10].text;
       const eventValue = parseInt(
         data.column_values[10].value.replace(/"/g, ""),
         10

@@ -70,22 +70,22 @@ const Analyse: React.FC = () => {
   console.log(entrepriseData);
 
   const effectif = entrepriseData.map((data) => {
-    const value = parseInt(data.column_values[1].value.replace(/"/g, ""), 10);
+    const value = parseInt(data.column_values[2].value.replace(/"/g, ""), 10);
     return isNaN(value) ? 0 : value;
   });
 
   const stagiaires = entrepriseData.map((data) => {
-    const value = parseInt(data.column_values[6].value.replace(/"/g, ""), 10);
-    return isNaN(value) ? 0 : value;
-  });
-
-  const apprentis = entrepriseData.map((data) => {
     const value = parseInt(data.column_values[7].value.replace(/"/g, ""), 10);
     return isNaN(value) ? 0 : value;
   });
 
-  const alumnis = entrepriseData.map((data) => {
+  const apprentis = entrepriseData.map((data) => {
     const value = parseInt(data.column_values[8].value.replace(/"/g, ""), 10);
+    return isNaN(value) ? 0 : value;
+  });
+
+  const alumnis = entrepriseData.map((data) => {
+    const value = parseInt(data.column_values[9].value.replace(/"/g, ""), 10);
     return isNaN(value) ? 0 : value;
   });
 
@@ -124,7 +124,7 @@ const Analyse: React.FC = () => {
   };
 
   const taxeApprentissage = entrepriseData.map((data) => {
-    const value = parseFloat(data.column_values[5].value.replace(/"/g, ""));
+    const value = parseFloat(data.column_values[6].value.replace(/"/g, ""));
     return isNaN(value) ? 0 : value;
   });
   console.log(taxeApprentissage);
@@ -205,7 +205,7 @@ const Analyse: React.FC = () => {
   };
 
   const actionNumber = entrepriseData.map((data) => {
-    const value = parseInt(data.column_values[9].value.replace(/"/g, ""), 10);
+    const value = parseInt(data.column_values[10].value.replace(/"/g, ""), 10);
     return isNaN(value) ? 0 : value;
   });
 
@@ -214,9 +214,9 @@ const Analyse: React.FC = () => {
     const groupedData = new Map();
 
     entrepriseData.forEach((data) => {
-      const eventType = data.column_values[10].text;
+      const eventType = data.column_values[11].text;
       const eventValue = parseInt(
-        data.column_values[9].value.replace(/"/g, ""),
+        data.column_values[10].value.replace(/"/g, ""),
         10
       );
 

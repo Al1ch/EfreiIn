@@ -5,7 +5,7 @@ const nextConfig = {
 		remotePatterns: [
 		  {
 			protocol: 'https',
-			hostname: 'i.goopics.net',
+			hostname: 'image.noelshack.com',
 		  },
 		]
 	  },

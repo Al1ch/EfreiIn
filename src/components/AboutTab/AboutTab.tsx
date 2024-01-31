@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./AboutTab.module.scss";
 import Link from "next/link";
-import Chart from "chart.js/auto";
+import Chart, { ChartItem } from "chart.js/auto";
 
 // const AboutTab = () => {
 const AboutTab: React.FC<{ data: any }> = ({ data }) => {
@@ -79,7 +79,7 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
       };
 
       // Create new chart instance
-      chartInstanceRef.current = new Chart(ctx, {
+      chartInstanceRef.current = new Chart(ctx as ChartItem, {
         type: "radar",
         data: radarChartData,
         options: {
@@ -97,7 +97,7 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
         },
       });
     }
-  }, []);
+  }, [data.column_values]);
 
   return (
     <div className={styles.container}>

@@ -1,14 +1,13 @@
 import React from "react";
 import styles from "./EntrepriseCard.module.scss";
-import Image from "next/image";
-import { StaticImageData } from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Location from "@/assets/vectors/location.svg";
 import Sector from "@/assets/vectors/sector.svg";
 import Size from "@/assets/vectors/people.svg";
 import Link from "next/link";
 
 type Props = {
-  id: String;
+  id: string;
   banner: string | StaticImageData;
   logo: string | StaticImageData;
   name: string;

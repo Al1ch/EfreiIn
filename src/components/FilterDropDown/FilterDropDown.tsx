@@ -19,12 +19,6 @@ const FilterDropDown = ({
   handleClick,
   isOpen,
 }: Props) => {
-  // const [filter, setFilter] = useState<string>({
-  //   Banque: false,
-  //   Assurance: false,
-  //   Immobilier: false,
-  // });
-
   return (
     <div className={cn(styles.container, { [styles.clickedButton]: isOpen })}>
       <button className={styles.labelContainer} onClick={handleClick}>
@@ -47,3 +41,46 @@ const FilterDropDown = ({
 };
 
 export default FilterDropDown;
+
+// const handleAllFilters = (entreprise: any) => {
+//   if (
+//     filter.secteur.length === 0 &&
+//     searchParams.get("search") === null &&
+//     filter.taille.length === 0
+//   )
+//     return true;
+
+//   const entrepriseEmployee = Number(
+//     entreprise.column_values[2].value
+//       .split("")
+//       .filter((letter: string) => letter != '"')
+//       .join("")
+//   );
+
+//   const filteredBySearch =
+//     entreprise.name
+//       .toLowerCase()
+//       .includes(searchParams.get("search")?.toString().toLowerCase()) ||
+//     searchParams.get("search") === null;
+
+//   const filteredBySector = filter.secteur.includes(
+//     entreprise.column_values[1].text
+//       .split("")
+//       .filter((letter: string) => letter != '"')
+//       .join("") ||
+//       (filter.secteur.length === 0 && filter.taille.length !== 0)
+//   );
+
+//   const sizeDictionnary = {
+//     "< 10 salariés": entrepriseEmployee < 10,
+//     "Entre 10 et 1000 salariés": entrepriseEmployee < 1000,
+//     "> 1000 salariés ": entrepriseEmployee > 1001,
+//   };
+//   const filteredBySize = filter.taille.some((size) => {
+//     return (
+//       sizeDictionnary[size as keyof typeof sizeDictionnary] ||
+//       (filter.secteur.length !== 0 && filter.taille.length === 0)
+//     );
+//   });
+
+//   return filteredBySearch && (filteredBySize || filteredBySector);

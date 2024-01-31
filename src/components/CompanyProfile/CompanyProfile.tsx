@@ -17,39 +17,38 @@ const CompanyProfile: React.FC<{ entrepriseId: any }> = ({ entrepriseId }) => {
 
   async function fetchData() {
     try {
-        const response = await fetch("https://api.monday.com/v2", {
-        method: 'post',
+      const response = await fetch("https://api.monday.com/v2", {
+        method: "post",
         headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMxNTYyNjUyMiwiYWFpIjoxMSwidWlkIjo1NTE5NTA0MSwiaWFkIjoiMjAyNC0wMS0zMFQxMjoyNDo0MS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjEwMzY3NDYsInJnbiI6ImV1YzEifQ.sQiLsu6ClUQX4kk0GvZlWCJWapFAvQAFMdC-lCNgM4w'
-            },
-            body: JSON.stringify({
-                query: `query { boards (ids: 1380938152) { items_page (query_params: { ids: [${entrepriseId}] }) { items { column_values { id value text } group { id } id name state } } } }`
-            })
-        });
+          "Content-Type": "application/json",
+          Authorization:
+            "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMxNTYyNjUyMiwiYWFpIjoxMSwidWlkIjo1NTE5NTA0MSwiaWFkIjoiMjAyNC0wMS0zMFQxMjoyNDo0MS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjEwMzY3NDYsInJnbiI6ImV1YzEifQ.sQiLsu6ClUQX4kk0GvZlWCJWapFAvQAFMdC-lCNgM4w",
+        },
+        body: JSON.stringify({
+          query: `query { boards (ids: 1380938152) { items_page (query_params: { ids: [${entrepriseId}] }) { items { column_values { id value text } group { id } id name state } } } }`,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
+      } else {
+        console.log("OKKK");
       }
-      else{console.log("OKKK");}
 
       const data = await response.json();
 
-      console.log("data",data);
-
+      console.log("data", data);
 
       setEntrepriseData(data.data.boards[0].items_page.items[0]);
       setIsLoading(false);
     } catch (error) {
       console.error("Error:", error);
     }
-
-
   }
 
   useEffect(() => {
     fetchData();
-  }, []); // Empty dependency array means this effect runs once after the first render
+  }, [fetchData]); // Empty dependency array means this effect runs once after the first render
 
   if (isLoading) return <div>loading...</div>;
   return (

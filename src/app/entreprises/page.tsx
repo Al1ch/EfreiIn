@@ -1,5 +1,3 @@
-// import React from "react";
-
 "use client";
 import styles from "./page.module.scss";
 import EntrepriseCard from "@/components/EntrepriseCard/EntrepriseCard";
@@ -9,18 +7,15 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import FilterDropDown from "@/components/FilterDropDown/FilterDropDown";
 
 import React, { useState, useEffect } from "react";
-
+import { useSearchParams } from "next/navigation";
 type Filter = {
   secteur: string[];
   taille: string[];
   localisation: string[];
 };
 
-export default function EntreprisePage({
-  searchParams,
-}: {
-  readonly searchParams: { [key: string]: string | string[] | undefined };
-}) {
+export default function EntreprisePage() {
+  const searchParams = useSearchParams();
   const [entrepriseData, setEntrepriseData] = useState<any[]>([]);
   const [filterTab, setFilterTab] = useState<
     "secteur" | "taille" | "localisation"
@@ -62,8 +57,8 @@ export default function EntreprisePage({
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMxNTYyNjUyMiwiYWFpIjoxMSwidWlkIjo1NTE5NTA0MSwiaWFkIjoiMjAyNC0wMS0zMFQxMjoyNDo0MS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjEwMzY3NDYsInJnbiI6ImV1YzEifQ.sQiLsu6ClUQX4kk0GvZlWCJWapFAvQAFMdC-lCNgM4w"
-            },
+              "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMxNTYyNjUyMiwiYWFpIjoxMSwidWlkIjo1NTE5NTA0MSwiaWFkIjoiMjAyNC0wMS0zMFQxMjoyNDo0MS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjEwMzY3NDYsInJnbiI6ImV1YzEifQ.sQiLsu6ClUQX4kk0GvZlWCJWapFAvQAFMdC-lCNgM4w",
+          },
           body: JSON.stringify({
             query:
               "query { boards (ids: 1380938152) { name columns { title id type } items_page { items { id name group { id } column_values { id value text } } } } }",
@@ -77,7 +72,6 @@ export default function EntreprisePage({
         const data = await response.json();
 
         const boardItems = data.data.boards[0].items_page.items;
-        console.log("BOARDITEMS", boardItems);
 
         setEntrepriseData(boardItems);
       } catch (error) {
@@ -86,56 +80,32 @@ export default function EntreprisePage({
     }
 
     fetchData();
-  }, [searchParams]); // Empty dependency array means this effect runs once after the first render
+  }, [searchParams]);
 
   const handleAllFilters = (entreprise: any) => {
-    if (filter.secteur.length === 0 && searchParams.search === undefined)
+    if (filter.secteur.length === 0 && searchParams.get("search") === null)
       return true;
+
+    const entrepriseEmployee = Number(
+      entreprise.column_values[2].value
+        .split("")
+        .filter((letter: string) => letter != '"')
+        .join("")
+    );
 
     const filteredBySearch =
       entreprise.name
         .toLowerCase()
-        .includes(searchParams.search?.toString().toLowerCase()) ||
-      searchParams.search === undefined;
+        .includes(searchParams.get("search")?.toString().toLowerCase()) ||
+      searchParams.get("search") === null;
 
-    console.log(
-      "VALUE",
-      entreprise.column_values[1].value
+    const filteredBySector = filter.secteur.includes(
+      entreprise.column_values[1].text
         .split("")
         .filter((letter: string) => letter != '"')
-        .join(""),
-      filter.secteur[0] ===
-        entreprise.column_values[1].value
-          .split("")
-          .filter((letter: string) => letter != '"')
-          .join("")
+        .join("") || filter.secteur.length === 0
     );
 
-    const filteredBySector =
-      filter.secteur.includes(
-        entreprise.column_values[1].value
-          .split("")
-          .filter((letter: string) => letter != '"')
-          .join("")
-      ) || filter.secteur.length === 0;
-
-    // const sizeDictionnary = {
-    //   "< 10 salariés": parseInt(entreprise.column_values[2].value) < 10,
-    //   "Entre 10 et 1000 salariés":
-    //     parseInt(entreprise.column_values[2].value) < 1000,
-    //   "> 1000 salariés ": parseInt(entreprise.column_values[2].value) > 1001,
-    // };
-
-    // const filteredBySize = filter.taille.some((size) => {
-    //   console.log(
-    //     "BOOOLEAN",
-    //     sizeDictionnary["Entre 10 et 1000 salariés"],
-    //     parseInt(entreprise.column_values[2].value)
-    //   );
-    //   return sizeDictionnary[size as keyof typeof sizeDictionnary];
-    // });
-
-    // return filteredBySearch && (filteredBySector || filteredBySize);
     return filteredBySearch && filteredBySector;
   };
 
@@ -143,13 +113,17 @@ export default function EntreprisePage({
     handleAllFilters(entreprise)
   );
 
+  const sectors = entrepriseData.map((entreprise) => {
+    return entreprise.column_values[1].text;
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.researchFilter}>
         <SearchBar placeholder="Rechercher une entreprise" />
         <FilterDropDown
           title="Secteur"
-          options={["charpentier métallique", "Assurance", "Finance"]}
+          options={[...Array.from(new Set(sectors))]}
           handleCheck={handleFilter}
           isOpen={filterTab === "secteur"}
           handleClick={() => handleActiveTab("secteur")}
@@ -180,7 +154,7 @@ export default function EntreprisePage({
             key={entreprise.id}
             id={entreprise.id}
             banner={sgBanner}
-            logo={sgLogo} // column index 12
+            logo={entreprise.column_values[12].text} // column index 12
             name={entreprise.name}
             sector={entreprise.column_values[1].text}
             location={entreprise.column_values[13].text}

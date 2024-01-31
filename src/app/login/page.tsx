@@ -60,9 +60,10 @@ export default function Login() {
             </Link>
             <div className={styles.description}>
               <p>
-                En me connectant, <span className={styles.bold}>j'accepte</span>{" "}
+                En me connectant,{" "}
+                <span className={styles.bold}>{"j'accepte"}</span>
                 <span className={styles.underline}>
-                  les conditions d'utilisations{" "}
+                  {" les conditions d'utilisations"}
                 </span>{" "}
                 du service SSO Efrei notamment en matière de données
                 personnelles

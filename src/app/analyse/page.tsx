@@ -16,7 +16,7 @@ import Select from "react-select";
 import "chartjs-plugin-datalabels";
 Chart.register(...registerables);
 Chart.register(CategoryScale as any, LinearScale as any);
-Chart.register("line", LineController as any);
+Chart.register(LineController as any);
 
 interface EntrepriseData {
   name: string;
@@ -69,22 +69,22 @@ const Analyse: React.FC = () => {
   const labels = entrepriseData.map((data) => data.name);
   console.log(entrepriseData);
 
-  const effectif = entrepriseData.map((data) => {
+  const effectif = entrepriseData.map((data: any) => {
     const value = parseInt(data.column_values[2].value.replace(/"/g, ""), 10);
     return isNaN(value) ? 0 : value;
   });
 
-  const stagiaires = entrepriseData.map((data) => {
+  const stagiaires = entrepriseData.map((data: any) => {
     const value = parseInt(data.column_values[7].value.replace(/"/g, ""), 10);
     return isNaN(value) ? 0 : value;
   });
 
-  const apprentis = entrepriseData.map((data) => {
+  const apprentis = entrepriseData.map((data: any) => {
     const value = parseInt(data.column_values[8].value.replace(/"/g, ""), 10);
     return isNaN(value) ? 0 : value;
   });
 
-  const alumnis = entrepriseData.map((data) => {
+  const alumnis = entrepriseData.map((data: any) => {
     const value = parseInt(data.column_values[9].value.replace(/"/g, ""), 10);
     return isNaN(value) ? 0 : value;
   });
@@ -123,7 +123,7 @@ const Analyse: React.FC = () => {
     ],
   };
 
-  const taxeApprentissage = entrepriseData.map((data) => {
+  const taxeApprentissage = entrepriseData.map((data: any) => {
     const value = parseFloat(data.column_values[6].value.replace(/"/g, ""));
     return isNaN(value) ? 0 : value;
   });
@@ -173,7 +173,7 @@ const Analyse: React.FC = () => {
       },
     ],
   };
-  const totalCost = taxeApprentissage.reduce((acc, value) => {
+  const totalCost = taxeApprentissage.reduce((acc, value: any) => {
     const parsedValue = parseFloat(value);
     return isNaN(parsedValue) ? acc : acc + parsedValue;
   }, 0);
@@ -204,7 +204,7 @@ const Analyse: React.FC = () => {
     cutout: "45%",
   };
 
-  const actionNumber = entrepriseData.map((data) => {
+  const actionNumber = entrepriseData.map((data: any) => {
     const value = parseInt(data.column_values[10].value.replace(/"/g, ""), 10);
     return isNaN(value) ? 0 : value;
   });
@@ -213,7 +213,7 @@ const Analyse: React.FC = () => {
   const groupDataByEventType = () => {
     const groupedData = new Map();
 
-    entrepriseData.forEach((data) => {
+    entrepriseData.forEach((data: any) => {
       const eventType = data.column_values[11].text;
       const eventValue = parseInt(
         data.column_values[10].value.replace(/"/g, ""),
@@ -268,7 +268,7 @@ const Analyse: React.FC = () => {
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
-      <h1>Tableau de Bord d'Analyse</h1>
+      <h1>{"Tableau de Bord d'Analyse"}</h1>
       <label>Sélectionnez les graphiques à afficher:</label>
       <Select options={selectOptions} isMulti onChange={handleGraphChange} />
       <div style={{ marginTop: "20px" }}>
@@ -281,13 +281,13 @@ const Analyse: React.FC = () => {
         >
           {selectedGraphs.includes("Effectif") && (
             <div style={{ width: "60%" }}>
-              <h2>Graphique d'Effectif</h2>
+              <h2>{"Graphique d'Effectif"}</h2>
               <Bar data={data} />
             </div>
           )}
           {selectedGraphs.includes("TaxeApprentissage") && (
             <div style={{ width: "40%" }}>
-              <h2>Graphique de Taxe d'apprentissage</h2>
+              <h2>{"Graphique de Taxe d'apprentissage"}</h2>
               <Doughnut
                 options={doughnutOptions}
                 data={taxeApprentissageChart}
@@ -298,7 +298,7 @@ const Analyse: React.FC = () => {
         {selectedGraphs.includes("Evenement") && (
           <div style={{ width: "50%", marginTop: "20px" }}>
             <h2>Graphique des Actions par Type de Visite</h2>
-            <PolarArea data={actionsData} options={options} />
+            <PolarArea data={actionsData} options={options as any} />
           </div>
         )}
       </div>

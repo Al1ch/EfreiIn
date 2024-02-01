@@ -2,7 +2,6 @@
 import styles from "./page.module.scss";
 import EntrepriseCard from "@/components/EntrepriseCard/EntrepriseCard";
 import sgBanner from "@/assets/images/sg-banner.jpg";
-import sgLogo from "@/assets/images/sgLogo.png";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import FilterDropDown from "@/components/FilterDropDown/FilterDropDown";
 
@@ -128,12 +127,6 @@ export default function EntreprisePage() {
     const filteredBySize = filter.taille.some((size) => {
       return sizeDictionnary[size as keyof typeof sizeDictionnary];
     });
-
-    // const filterValue =
-    //   (filter.taille.length === 0 && filter.secteur.length === 0) ||
-    //   (filter.taille.length === 0 && filteredBySector) ||
-    //   (filter.secteur.length === 0 && filteredBySize) ||
-    //   (filteredBySector && filteredBySize);
 
     const filterValue =
       (filter.taille.length === 0 &&

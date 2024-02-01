@@ -1,12 +1,10 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import ProfileCard from "@/components/ProfileCard/ProfileCard";
 import SearchBar from "@/components/SearchBar/SearchBar";
-import FilterDropDown from "@/components/FilterDropDown/FilterDropDown";
-import sgBg from "@/assets/images/sg-banner.jpg";
 
-export default function Network ({
+export default function Network({
   searchParams,
 }: {
   readonly searchParams: { [key: string]: string | string[] | undefined };
@@ -26,7 +24,7 @@ export default function Network ({
           body: JSON.stringify({
             query:
               "query { boards (ids: 1380732714) { name columns { title id type } items_page { items { id name group { id } column_values { id value text } } } } }",
-            }),
+          }),
         });
 
         if (!response.ok) {
@@ -44,30 +42,29 @@ export default function Network ({
       }
     }
 
-  fetchData();
+    fetchData();
   }, [searchParams]); // Empty dependency array means this effect runs once after the first render
 
   return (
     <div className={styles.container}>
-    <div className={styles.containerListLayout}>
-    <SearchBar
-      rounded={true}
-      backgroundColor="grey"
-      placeholder="Rechercher un contact"
-    />
-      Personne qui pourrez vous intéresser
-    <div className={styles.listContainer}>
-      {entrepriseData.map((alumni) => (
-        <ProfileCard
-          name={alumni.column_values[0].text}
-          job={alumni.column_values[1].text}
-          link={alumni.column_values[2].text}
+      <div className={styles.containerListLayout}>
+        <SearchBar
+          rounded={true}
+          backgroundColor="grey"
+          placeholder="Rechercher un contact"
         />
-      ))}
+        Personne qui pourrez vous intéresser
+        <div className={styles.listContainer}>
+          {entrepriseData.map((alumni) => (
+            <ProfileCard
+              key={alumni.column_values[0].text}
+              name={alumni.column_values[0].text}
+              job={alumni.column_values[1].text}
+              link={alumni.column_values[2].text}
+            />
+          ))}
+        </div>
       </div>
-      </div>
-      </div>
+    </div>
   );
-};
-
-// export default Network;
+}

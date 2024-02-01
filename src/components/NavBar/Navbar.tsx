@@ -11,7 +11,9 @@ import EfreiLogo from "@/assets/vectors/Efrei.svg";
 const Navbar = () => {
   return (
     <div className={styles.container}>
-      <EfreiLogo className={styles.logo} />
+      <Link href="/home">
+        <EfreiLogo className={styles.logo} />
+      </Link>
       <SearchBar
         rounded={true}
         backgroundColor="grey"

@@ -28,7 +28,7 @@ export default function EntreprisePage() {
   });
 
   const handleFilter = (option: string, filterType: string): void => {
-    !filter.secteur.includes(option)
+    !filter[filterType as keyof typeof filter].includes(option)
       ? setFilter((prev) => ({
           ...prev,
           [filterType]: [...prev[filterType as keyof typeof filter], option],
@@ -83,7 +83,11 @@ export default function EntreprisePage() {
   }, [searchParams]);
 
   const handleAllFilters = (entreprise: any) => {
-    if (filter.secteur.length === 0 && searchParams.get("search") === null)
+    if (
+      filter.secteur.length === 0 &&
+      searchParams.get("search") === null &&
+      filter.taille.length === 0
+    )
       return true;
 
     const entrepriseEmployee = Number(
@@ -103,12 +107,34 @@ export default function EntreprisePage() {
       entreprise.column_values[1].text
         .split("")
         .filter((letter: string) => letter != '"')
-        .join("") || filter.secteur.length === 0
+        .join("")
     );
 
-    return filteredBySearch && filteredBySector;
-  };
+    const sizeDictionnary = {
+      "< 10 salariés": entrepriseEmployee < 10,
+      "Entre 10 et 1000 salariés": entrepriseEmployee < 1000,
+      "> 1000 salariés ": entrepriseEmployee > 1001,
+    };
+    const filteredBySize = filter.taille.some((size) => {
+      return sizeDictionnary[size as keyof typeof sizeDictionnary];
+    });
 
+    let filtered: boolean = false;
+
+    if (filter.taille.length === 0 && filter.secteur.length === 0) {
+      filtered = true;
+    } else if (filter.taille.length === 0 && filteredBySector) {
+      filtered = true;
+    } else if (filter.secteur.length === 0 && filteredBySize) {
+      filtered = true;
+    } else if (filteredBySector === false && filteredBySize === false) {
+      filtered = false;
+    } else if (filteredBySector && filteredBySize) {
+      filtered = true;
+    }
+
+    return filteredBySearch && filtered;
+  };
   const filteredEntrepriseData = entrepriseData.filter((entreprise) =>
     handleAllFilters(entreprise)
   );

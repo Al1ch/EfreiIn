@@ -125,7 +125,7 @@ const Analyse: React.FC = () => {
   };
 
   const taxeApprentissage = entrepriseData.map((data: any) => {
-    const value = parseFloat(data.column_values[6].value.replace(/"/g, ""));
+    const value = parseInt(data.column_values[6].value.replace(/"/g, ""));
     return isNaN(value) ? 0 : value;
   });
 
@@ -285,14 +285,17 @@ const Analyse: React.FC = () => {
       <label>Sélectionnez les graphiques à afficher:</label>
       <Select options={selectOptions} isMulti onChange={handleGraphChange} />
       <div className={styles.kpiContainer}>
-        <KpiCard title="Taxe d'apprentissage" value={String(totalCost)} />
+        <KpiCard
+          title="Taxe d'apprentissage"
+          value={`${String(totalCost)} €`}
+        />
         <KpiCard
           title="Evènements"
-          value={String(actionNumber.reduce((a, b) => a + b, 0))}
+          value={`${String(actionNumber.reduce((a, b) => a + b, 0))} €`}
         />
         <KpiCard
           title="Nombre d'entreprise partenaire"
-          value={String(entrepriseData.length)}
+          value={`${String(entrepriseData.length)} €`}
         />
       </div>
 

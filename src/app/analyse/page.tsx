@@ -211,10 +211,10 @@ const Analyse: React.FC = () => {
     cutout: "45%",
   };
 
-  // const actionNumber = entrepriseData.map((data: any) => {
-  //   const value = Number(data.column_values[10].value.replace(/"/g, ""));
-  //   return isNaN(value) ? 0 : value;
-  // });
+  const actionNumber = entrepriseData.map((data: any) => {
+    const value = Number(data.column_values[10].text.replace(/"/g, ""));
+    return isNaN(value) ? 0 : value;
+  });
 
   // const actionNumberTotal = actionNumber.reduce((acc, value: any) => {
   //   const parsedValue = parseFloat(value);
@@ -286,7 +286,10 @@ const Analyse: React.FC = () => {
       <Select options={selectOptions} isMulti onChange={handleGraphChange} />
       <div className={styles.kpiContainer}>
         <KpiCard title="Taxe d'apprentissage" value={String(totalCost)} />
-        {/* <KpiCard title="Evènements" value={String(actionNumberTotal)} /> */}
+        <KpiCard
+          title="Evènements"
+          value={String(actionNumber.reduce((a, b) => a + b, 0))}
+        />
         <KpiCard
           title="Nombre d'entreprise partenaire"
           value={String(entrepriseData.length)}

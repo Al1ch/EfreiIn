@@ -86,9 +86,11 @@ export default function EntreprisePage() {
     if (
       filter.secteur.length === 0 &&
       searchParams.get("search") === null &&
-      filter.taille.length === 0
-    )
+      filter.taille.length === 0 &&
+      filter.localisation.length === 0
+    ) {
       return true;
+    }
 
     const entrepriseEmployee = Number(
       entreprise.column_values[2].value
@@ -110,30 +112,55 @@ export default function EntreprisePage() {
         .join("")
     );
 
+    const filteredByLocalisation = filter.localisation.includes(
+      entreprise.column_values[13].text
+        .split("")
+        .filter((letter: string) => letter != '"')
+        .join("")
+    );
+
     const sizeDictionnary = {
       "< 10 salariés": entrepriseEmployee < 10,
       "Entre 10 et 1000 salariés": entrepriseEmployee < 1000,
       "> 1000 salariés ": entrepriseEmployee > 1001,
     };
+
     const filteredBySize = filter.taille.some((size) => {
       return sizeDictionnary[size as keyof typeof sizeDictionnary];
     });
 
-    let filtered: boolean = false;
+    // const filterValue =
+    //   (filter.taille.length === 0 && filter.secteur.length === 0) ||
+    //   (filter.taille.length === 0 && filteredBySector) ||
+    //   (filter.secteur.length === 0 && filteredBySize) ||
+    //   (filteredBySector && filteredBySize);
 
-    if (filter.taille.length === 0 && filter.secteur.length === 0) {
-      filtered = true;
-    } else if (filter.taille.length === 0 && filteredBySector) {
-      filtered = true;
-    } else if (filter.secteur.length === 0 && filteredBySize) {
-      filtered = true;
-    } else if (filteredBySector === false && filteredBySize === false) {
-      filtered = false;
-    } else if (filteredBySector && filteredBySize) {
-      filtered = true;
-    }
+    const filterValue =
+      (filter.taille.length === 0 &&
+        filter.secteur.length === 0 &&
+        filter.localisation.length === 0) ||
+      (filter.taille.length === 0 &&
+        filteredBySector &&
+        filter.localisation.length === 0) ||
+      (filteredBySize &&
+        filter.secteur.length === 0 &&
+        filter.localisation.length === 0) ||
+      (filter.taille.length === 0 &&
+        filter.secteur.length === 0 &&
+        filteredByLocalisation) ||
+      (filteredBySize &&
+        filteredBySector &&
+        filter.localisation.length === 0) ||
+      (filteredBySize &&
+        filter.secteur.length === 0 &&
+        filteredByLocalisation) ||
+      (filter.taille.length === 0 &&
+        filteredBySector &&
+        filteredByLocalisation) ||
+      (filteredBySize && filteredBySector && filteredByLocalisation) ||
+      (filteredBySector && filteredBySize && filteredByLocalisation);
 
-    return filteredBySearch && filtered;
+    return filteredBySearch && filterValue;
   };
   const filteredEntrepriseData = entrepriseData.filter((entreprise) =>
     handleAllFilters(entreprise)
@@ -142,6 +169,14 @@ export default function EntreprisePage() {
   const sectors = entrepriseData.map((entreprise) => {
     return entreprise.column_values[1].text;
   });
+
+  const entrepriseLocation = [
+    ...Array.from(
+      new Set(
+        entrepriseData.map((entreprise) => entreprise.column_values[13].text)
+      )
+    ),
+  ];
 
   return (
     <div className={styles.container}>
@@ -167,7 +202,7 @@ export default function EntreprisePage() {
         />
         <FilterDropDown
           title="Localisation"
-          options={["île-de-france", "Assurance", "Finance"]}
+          options={entrepriseLocation}
           handleCheck={handleFilter}
           isOpen={filterTab === "localisation"}
           handleClick={() => handleActiveTab("localisation")}

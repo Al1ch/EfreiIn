@@ -23,12 +23,14 @@
     z-index: 100;
     justify-content: flex-start;
     opacity: 0;
+    display: none;
     transition: opacity 150ms ease-in-out;
     min-height: 25px;
     align-items: center;
     z-index: 1;
     &.clicked{
         opacity: 1;
+        display: block;
     }
 }
 

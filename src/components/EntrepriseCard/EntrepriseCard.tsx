@@ -25,6 +25,7 @@ const EntrepriseCard = ({
   location,
   size,
 }: Props) => {
+  console.log("ENTREPRISECARD", id, "name ", name);
   return (
     <div className={styles.container}>
       <Link href={`entreprises/${id}`} passHref className={styles.link}>

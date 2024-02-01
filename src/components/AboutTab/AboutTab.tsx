@@ -103,9 +103,7 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
     <div className={styles.container}>
       <h2 className={styles.sectionTitle}> Présentation</h2>
       <div className={styles.contentContainer}>
-        <p
-          className={styles.description}
-        >{data.column_values[16].text}</p>
+        <p className={styles.description}>{data.column_values[16].text}</p>
         <div className={styles.websiteSection}>
           <h3 className={styles.titleInfo}>Site web</h3>
           <Link href={data.column_values[14].text} className={styles.link}>
@@ -119,7 +117,7 @@ const AboutTab: React.FC<{ data: any }> = ({ data }) => {
         <div className={styles.sizeSection}>
           <h3 className={styles.titleInfo}>{"Taille de l'entreprise"}</h3>
           <span className={styles.text}>
-            {data.column_values[1].text} employés
+            {data.column_values[2].text} employés
           </span>
         </div>
       </div>

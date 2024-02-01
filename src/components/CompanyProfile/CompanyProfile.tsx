@@ -8,47 +8,45 @@ import AlumniTab from "@/components/AlumniTab/AlumniTab";
 import AboutTab from "@/components//AboutTab/AboutTab";
 import { useParams } from "next/navigation";
 import sgBanner from "@/assets/images/sg-banner.jpg";
-import sgLogo from "@/assets/images/sgLogo.png";
 
 const CompanyProfile: React.FC<{ entrepriseId: any }> = ({ entrepriseId }) => {
   const [entrepriseData, setEntrepriseData] = useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
   const [tab, setTabValue] = useState("home");
 
-  async function fetchData() {
-    try {
-      const response = await fetch("https://api.monday.com/v2", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMxNTYyNjUyMiwiYWFpIjoxMSwidWlkIjo1NTE5NTA0MSwiaWFkIjoiMjAyNC0wMS0zMFQxMjoyNDo0MS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjEwMzY3NDYsInJnbiI6ImV1YzEifQ.sQiLsu6ClUQX4kk0GvZlWCJWapFAvQAFMdC-lCNgM4w",
-        },
-        body: JSON.stringify({
-          query: `query { boards (ids: 1380938152) { items_page (query_params: { ids: [${entrepriseId}] }) { items { column_values { id value text } group { id } id name state } } } }`,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      } else {
-        console.log("OKKK");
-      }
-
-      const data = await response.json();
-
-      console.log("data", data);
-
-      setEntrepriseData(data.data.boards[0].items_page.items[0]);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("https://api.monday.com/v2", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMxNTYyNjUyMiwiYWFpIjoxMSwidWlkIjo1NTE5NTA0MSwiaWFkIjoiMjAyNC0wMS0zMFQxMjoyNDo0MS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjEwMzY3NDYsInJnbiI6ImV1YzEifQ.sQiLsu6ClUQX4kk0GvZlWCJWapFAvQAFMdC-lCNgM4w",
+          },
+          body: JSON.stringify({
+            query: `query { boards (ids: 1380938152) { items_page (query_params: { ids: [${entrepriseId}] }) { items { column_values { id value text } group { id } id name state } } } }`,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        } else {
+          console.log("OKKK");
+        }
+
+        const data = await response.json();
+
+        console.log("data", data);
+
+        setEntrepriseData(data.data.boards[0].items_page.items[0]);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
     fetchData();
-  }, [fetchData]); // Empty dependency array means this effect runs once after the first render
+  }, [entrepriseId]); // Empty dependency array means this effect runs once after the first render
 
   if (isLoading) return <div>loading...</div>;
   return (
@@ -65,7 +63,7 @@ const CompanyProfile: React.FC<{ entrepriseId: any }> = ({ entrepriseId }) => {
         <CompanyBanner
           id={entrepriseData.id}
           banner={sgBanner}
-          logo={sgLogo}
+          logo={entrepriseData.column_values[12].text}
           name={entrepriseData.name}
           slogan={entrepriseData.column_values[15].text}
           details={`${entrepriseData.column_values[1].text} - ${entrepriseData.column_values[13].text} - ${entrepriseData.column_values[2].text} employés`}

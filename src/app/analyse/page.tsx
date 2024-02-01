@@ -1,8 +1,9 @@
 // pages/analyse.tsx
 "use client";
-
+import styles from "./page.module.scss";
 import React, { useEffect, useState } from "react";
 import { Bar, Line, Doughnut, Radar, PolarArea } from "react-chartjs-2";
+import KpiCard from "@/components/KpiCard/KpiCard";
 import {
   CategoryScale,
   LinearScale,
@@ -127,6 +128,7 @@ const Analyse: React.FC = () => {
     const value = parseFloat(data.column_values[6].value.replace(/"/g, ""));
     return isNaN(value) ? 0 : value;
   });
+
   console.log(taxeApprentissage);
 
   const backgroundColors = [
@@ -174,9 +176,14 @@ const Analyse: React.FC = () => {
     ],
   };
   const totalCost = taxeApprentissage.reduce((acc, value: any) => {
-    const parsedValue = parseFloat(value);
+    const parsedValue = Number(value);
     return isNaN(parsedValue) ? acc : acc + parsedValue;
   }, 0);
+
+  const eventRealised = entrepriseData.map((data: any) => {
+    const value = parseInt(data.column_values[9].value.replace(/"/g, ""), 10);
+    return isNaN(value) ? 0 : value;
+  });
 
   const selectOptions = [
     { value: "Effectif", label: "Graphique d'Effectif" },
@@ -204,10 +211,16 @@ const Analyse: React.FC = () => {
     cutout: "45%",
   };
 
-  const actionNumber = entrepriseData.map((data: any) => {
-    const value = parseInt(data.column_values[10].value.replace(/"/g, ""), 10);
-    return isNaN(value) ? 0 : value;
-  });
+  // const actionNumber = entrepriseData.map((data: any) => {
+  //   const value = Number(data.column_values[10].value.replace(/"/g, ""));
+  //   return isNaN(value) ? 0 : value;
+  // });
+
+  // const actionNumberTotal = actionNumber.reduce((acc, value: any) => {
+  //   const parsedValue = parseFloat(value);
+  //   console.log(parsedValue);
+  //   return isNaN(parsedValue) ? acc : acc + parsedValue;
+  // });
 
   // Fonction pour regrouper les données par type d'événement
   const groupDataByEventType = () => {
@@ -271,6 +284,15 @@ const Analyse: React.FC = () => {
       <h1>{"Tableau de Bord d'Analyse"}</h1>
       <label>Sélectionnez les graphiques à afficher:</label>
       <Select options={selectOptions} isMulti onChange={handleGraphChange} />
+      <div className={styles.kpiContainer}>
+        <KpiCard title="Taxe d'apprentissage" value={String(totalCost)} />
+        {/* <KpiCard title="Evènements" value={String(actionNumberTotal)} /> */}
+        <KpiCard
+          title="Nombre d'entreprise partenaire"
+          value={String(entrepriseData.length)}
+        />
+      </div>
+
       <div style={{ marginTop: "20px" }}>
         <div
           style={{
@@ -287,7 +309,7 @@ const Analyse: React.FC = () => {
           )}
           {selectedGraphs.includes("TaxeApprentissage") && (
             <div style={{ width: "40%" }}>
-              <h2>{"Graphique de Taxe d'apprentissage"}</h2>
+              <h2>{"Taxe d'apprentissage"}</h2>
               <Doughnut
                 options={doughnutOptions}
                 data={taxeApprentissageChart}
@@ -297,7 +319,7 @@ const Analyse: React.FC = () => {
         </div>
         {selectedGraphs.includes("Evenement") && (
           <div style={{ width: "50%", marginTop: "20px" }}>
-            <h2>Graphique des Actions par Type de Visite</h2>
+            <h2>Actions par Type de Visite</h2>
             <PolarArea data={actionsData} options={options as any} />
           </div>
         )}

@@ -5,7 +5,6 @@ import Image, { StaticImageData } from "next/image";
 import sgLogo from "@/assets/images/sgLogo.png";
 import { describe } from "node:test";
 
-
 type Props = {
   id: String;
   banner: string | StaticImageData;
@@ -15,20 +14,19 @@ type Props = {
   details: string;
 };
 
-const CompanyBanner = ({
-  id,
-  banner,
-  logo,
-  name,
-  slogan,
-  details,
-}: Props) => {
+const CompanyBanner = ({ id, banner, logo, name, slogan, details }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.bannerContainer}>
         <div className={styles.banner}>
           <Image src={banner} alt="sgBanner" className={styles.bannerImage} />
-          <Image src={logo} alt="sgLogo" className={styles.logo} />
+          <Image
+            src={logo}
+            alt="sgLogo"
+            width={100}
+            height={100}
+            className={styles.logo}
+          />
         </div>
       </div>
       <div className={styles.companiesInfo}>

@@ -291,11 +291,11 @@ const Analyse: React.FC = () => {
         />
         <KpiCard
           title="Evènements"
-          value={`${String(actionNumber.reduce((a, b) => a + b, 0))} €`}
+          value={`${String(actionNumber.reduce((a, b) => a + b, 0))} `}
         />
         <KpiCard
           title="Nombre d'entreprise partenaire"
-          value={`${String(entrepriseData.length)} €`}
+          value={`${String(entrepriseData.length)}`}
         />
       </div>
 

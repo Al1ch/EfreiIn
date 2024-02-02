@@ -45,6 +45,15 @@ export default function Network({
     fetchData();
   }, [searchParams]); // Empty dependency array means this effect runs once after the first render
 
+  const filteredAlumniData = entrepriseData.filter((alumni) => {
+    return (
+      alumni.column_values[0].text
+        .toLowerCase()
+        .includes(searchParams.search?.toString().toLowerCase()) ||
+      searchParams.search === undefined
+    );
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.containerListLayout}>
@@ -55,7 +64,7 @@ export default function Network({
         />
         Personne qui pourrez vous intéresser
         <div className={styles.listContainer}>
-          {entrepriseData.map((alumni) => (
+          {filteredAlumniData.map((alumni) => (
             <ProfileCard
               key={alumni.column_values[0].text}
               name={alumni.column_values[0].text}
